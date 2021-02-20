@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Row,
   Col,
@@ -11,47 +11,49 @@ import {
   Rate,
 } from "antd";
 
+let misiones_inicial = [
+  {
+    titulo: "Esta es la primera misión",
+    descripcion: "Esta es una descripción",
+    reward: "https://img.icons8.com/officel/80/000000/galaxy.png",
+    nivel: 1.5,
+    ID: "ASDADASDAS",
+  },
+  {
+    titulo: "Esta es la segunda misión",
+    descripcion: "Esta es otra descripción",
+    nivel: 5,
+    reward: "https://img.icons8.com/color/96/000000/astronaut-helmet.png",
+    ID: "ASDASDAS",
+  },
+  {
+    titulo: "Esta es la tercera misión",
+    descripcion: "Esta es otra descripción",
+    nivel: 2,
+    reward: "https://img.icons8.com/officel/80/000000/galaxy.png",
+    ID: "ASDASDAS",
+  },
+];
+
 export default function QuestLog({ visible, modEstado }) {
   const { Text } = Typography;
+  const [misMisiones, setMisiones] = useState(misiones_inicial);
 
-  let misiones = [
-    {
-      titulo: "Esta es la primera misión",
-      descripcion: "Esta es una descripción",
-      reward: "https://img.icons8.com/officel/80/000000/galaxy.png",
-      nivel: 1.5,
-      ID: "ASDADASDAS",
-    },
-    {
-      titulo: "Esta es la segunda misión",
-      descripcion: "Esta es otra descripción",
-      nivel: 5,
-      reward: "https://img.icons8.com/color/96/000000/astronaut-helmet.png",
-      ID: "ASDASDAS",
-    },
-    {
-      titulo: "Esta es la tercera misión",
-      descripcion: "Esta es otra descripción",
-      nivel: 2,
-      reward: "https://img.icons8.com/officel/80/000000/galaxy.png",
-      ID: "ASDASDAS",
-    },
-  ];
   return (
     <Modal
-      title="Agenda de misiones"
+      title="Bitácora de misiones"
       centered
       visible={visible}
       onOk={() => modEstado(false)}
     >
       <Col>
-        {misiones.map((mision) => (
+        {misMisiones.map((mision) => (
           <Row>
             <Card
               title={
                 <Space direction="horizontal" align="center">
                   <h3 style={{ marginTop: "15px", marginRight: "20px" }}>
-                    Bitácora de misiones
+                    {mision.titulo}
                   </h3>
 
                   <Rate allowHalf defaultValue={mision.nivel} disabled />
