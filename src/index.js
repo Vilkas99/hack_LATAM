@@ -7,13 +7,16 @@ import Routes from "./routes/routes";
 import { FirebaseAppProvider } from "reactfire";
 import firebaseConfig from "./firebase-config";
 import { AuthProvider } from "./Utils/Auth"
+import { GlobalProvider } from "./Utils/Global"
 
 ReactDOM.render(
+  <GlobalProvider>
   <AuthProvider>
       <React.StrictMode>
         <Routes />
       </React.StrictMode>
-      </AuthProvider>,
+      </AuthProvider>
+      </GlobalProvider>,
   document.getElementById("root")
 );
 
