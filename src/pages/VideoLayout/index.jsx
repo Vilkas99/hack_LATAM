@@ -3,7 +3,7 @@ import Peer from "simple-peer";
 import socket from "../../Utils/Socket/socket";
 import "./estilo.scss";
 import { Row, Col } from "antd";
-import VideoComponente from "./VideoComp";
+import VideoComponente from "../../Components/VideoComp";
 
 function VideoLayout() {
   const [yourID, setYourID] = useState(""); //Id del usuario

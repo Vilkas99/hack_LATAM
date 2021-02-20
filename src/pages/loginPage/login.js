@@ -6,9 +6,8 @@ import {
   MailOutlined,
   NumberOutlined,
 } from "@ant-design/icons";
-
 import "./login.css";
-
+import { Redirect } from "react-router-dom";
 import { useAuth  } from "../../Utils/Auth";
 
 const { TabPane } = Tabs;
@@ -18,9 +17,12 @@ const Login = () => {
   console.log("entrnad");
    
   const { login, signUp } = useAuth();
+  const [success, setSuccess] = useState(false);
+
   const SubmitLogin = async (values) => {
     console.log(values.username, values.password);
-    login(values.username, values.password);        
+    login(values.username, values.password);     
+    setSuccess(true);
   };
 
   const logout = async () => {
@@ -43,6 +45,7 @@ const Login = () => {
 
   return (       
         <div className="card">
+            {success && <Redirect to="/room" />}
           <div className="center">
             <img src="https://i.ibb.co/G061H2N/b-1.png" />
           </div>
