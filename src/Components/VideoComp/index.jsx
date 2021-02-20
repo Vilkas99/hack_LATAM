@@ -6,12 +6,12 @@ import {
   QuestionCircleOutlined,
   BulbTwoTone,
   DollarTwoTone,
-  ThunderboltTwoTone,  
+  ThunderboltTwoTone,
   VideoCameraFilled,
   AudioOutlined,
-  AudioMutedOutlined
+  AudioMutedOutlined,
 } from "@ant-design/icons";
-import { useGlobal } from "../../Utils/Global"
+import { useGlobal } from "../../Utils/Global";
 import QuestLog from "../QuestLog";
 
 const Descripcion = () => {
@@ -68,37 +68,80 @@ const ContenidoCard = () => {
 };
 
 const MicCam = () => {
-  const { changeMicro, currentMicrophone, changeVideo, currentVideo } = useGlobal();    
+  const {
+    changeMicro,
+    currentMicrophone,
+    changeVideo,
+    currentVideo,
+  } = useGlobal();
 
   return (
-    <Row style={{ marginTop: "-70px" , marginBottom: "50px" }}>
+    <Row style={{ marginTop: "-70px", marginBottom: "50px" }}>
       <Space direction="horizontal">
-        <Button 
-          style={{ backgroundColor: currentVideo ? "red": "#87ea26", borderStyle:"none" }}
-          type="primary" 
+        <Button
+          style={{
+            backgroundColor: currentVideo ? "#87ea26" : "red",
+            borderStyle: "none",
+          }}
+          type="primary"
           shape="circle"
-          icon={<VideoCameraFilled />} 
-          onClick={() => changeVideo()}/>
-        <Button 
-          style={{ backgroundColor: currentMicrophone ?  "red": "#87ea26", borderStyle:"none" }}
-          type="primary" 
+          icon={<VideoCameraFilled />}
+          onClick={() => changeVideo()}
+        />
+        <Button
+          style={{
+            backgroundColor: currentMicrophone ? "#87ea26" : "red",
+            borderStyle: "none",
+          }}
+          type="primary"
           shape="circle"
-          icon={currentMicrophone? <AudioMutedOutlined />: <AudioOutlined />  } 
-          onClick={() => changeMicro()}/>                
+          icon={currentMicrophone ? <AudioOutlined /> : <AudioMutedOutlined />}
+          onClick={() => changeMicro()}
+        />
       </Space>
     </Row>
   );
-  
+};
+
+const NoCamera = () => {
+
+  return (
+    <div style={{ height: 250, backgroundColor: "#bfbfbf" }}>
+    <img
+      src="https://i.ibb.co/G061H2N/b-1.png"
+      style={{
+        height: 180,
+        width: 300,
+        opacity: "40%",
+        marginLeft: 45,
+        marginTop: 10,
+      }}
+    />
+  </div>
+  );
 };
 
 function VideoComponente({ userVideo }) {
-  const { currentMicrophone } = useGlobal();  
+  const { currentMicrophone, currentVideo } = useGlobal();
+  console.log("Micro:", currentMicrophone);
+  console.log("Video:", currentVideo);
   return (
     <Card
       style={{ width: 450 }}
-      cover={<video playsInline muted={currentMicrophone} ref={userVideo} autoPlay />}
+      cover={
+        currentVideo ? (
+          <video
+            playsInline
+            muted={!currentMicrophone}
+            ref={userVideo}
+            autoPlay
+          />
+        ) : (
+         <NoCamera/>
+        )
+      }
     >
-      <MicCam/>
+      <MicCam />
       <ContenidoCard />
     </Card>
   );

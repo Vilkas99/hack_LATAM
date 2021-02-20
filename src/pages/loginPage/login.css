@@ -65,7 +65,7 @@
     place-items: center;
     align-items: center;
 }
-img {
+.logo {
     height:250px;
     width: 380px;            
     margin-top: -150px;      

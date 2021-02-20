@@ -11,8 +11,8 @@ export function useGlobal() {
 }
 
 export function GlobalProvider({ children }) {  
-  const [currentMicrophone, setMicrophone] = useState();
-  const [currentVideo, setVideo] = useState();  
+  const [currentMicrophone, setMicrophone] = useState(false);
+  const [currentVideo, setVideo] = useState(true);  
   
 
   function changeMicro () {         
@@ -23,6 +23,7 @@ export function GlobalProvider({ children }) {
 
   function changeVideo () {         
     setVideo(!currentVideo);
+    console.log(currentVideo);
     return currentVideo;
     
   }

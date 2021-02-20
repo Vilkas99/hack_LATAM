@@ -40,7 +40,7 @@ const Login = () => {
     <div className="card">
       {success && <Redirect to="/room" />}
       <div className="center">
-        <img src="https://i.ibb.co/G061H2N/b-1.png" />
+        <img className="logo" src="https://i.ibb.co/G061H2N/b-1.png" />
       </div>
       <Tabs defaultActiveKey="1" onChange={callback}>
         <TabPane tab="Sign In" key="1">
