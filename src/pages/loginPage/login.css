@@ -1,0 +1,117 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.login-form {
+  max-width: 300px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+
+.card {
+    /* overflow: hidden; */
+    background-color: white;
+    padding: 40px 30px 30px 30px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    margin-top: -200px;
+    margin-left: -200px;
+    box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+}
+
+.card > input {
+    font-family: 'Asap', sans-serif;
+    display: block;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+    width: 100%;
+    border: 0;
+    padding: 10px 10px;
+    margin: 15px -10px;
+}
+
+.card > button {
+    font-family: 'Asap', sans-serif;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    width: 80px;
+    border: 0;
+    padding: 10px 0;
+    margin-top: 10px;
+    margin-left: -5px;
+    border-radius: 5px;
+    background-color: rgba(244, 91, 105, 1);
+    align-items: center;
+}
+
+
+.card > button:hover {
+    background-color: rgba(242, 67, 83, 1);
+}
+.center {
+    display: grid;
+    place-items: center;
+    align-items: center;
+}
+img {
+    height:250px;
+    width: 380px;            
+    margin-top: -150px;      
+    padding-right: 40px;
+    margin-left: -20px;    
+}
+
+body {
+    background: linear-gradient(270deg, #fc466b 0%, #3f5efb 100%);
+    background-size: 400% 400%;
+  
+    -webkit-animation: AnimationName 20s ease infinite;
+    -moz-animation: AnimationName 20s ease infinite;
+    animation: AnimationName 20s ease infinite;
+  }
+
+  @-webkit-keyframes AnimationName {
+    0% {
+      background-position: 0% 28%;
+    }
+    50% {
+      background-position: 100% 73%;
+    }
+    100% {
+      background-position: 0% 28%;
+    }
+  }
+  @-moz-keyframes AnimationName {
+    0% {
+      background-position: 0% 28%;
+    }
+    50% {
+      background-position: 100% 73%;
+    }
+    100% {
+      background-position: 0% 28%;
+    }
+  }
+  @keyframes AnimationName {
+    0% {
+      background-position: 0% 28%;
+    }
+    50% {
+      background-position: 100% 73%;
+    }
+    100% {
+      background-position: 0% 28%;
+    }
+  }
