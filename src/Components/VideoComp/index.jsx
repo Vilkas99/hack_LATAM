@@ -7,9 +7,11 @@ import {
   BulbTwoTone,
   DollarTwoTone,
   ThunderboltTwoTone,
+  NotificationTwoTone,
 } from "@ant-design/icons";
 
 import QuestLog from "../QuestLog";
+import FormNotificaciones from "../FormNotificaciones";
 
 const Descripcion = () => {
   const { Text } = Typography;
@@ -30,6 +32,7 @@ const Descripcion = () => {
 const Botones = () => {
   const [visibleQuest, setVisibleQuest] = useState(false);
   const [visibleItems, setVisibleItems] = useState(false);
+  const [visibleFormNoti, setVisibleFormNoti] = useState(false);
   return (
     <Row style={{ marginTop: "20px" }}>
       <Space direction="horizontal">
@@ -46,7 +49,18 @@ const Botones = () => {
         >
           Items
         </Button>
+        <Button
+          icon={<NotificationTwoTone />}
+          onClick={() => setVisibleFormNoti(true)}
+        >
+          Notificación
+        </Button>
         <QuestLog visible={visibleQuest} modEstado={setVisibleQuest} />
+
+        <FormNotificaciones
+          visible={visibleFormNoti}
+          setVisible={setVisibleFormNoti}
+        />
       </Space>
     </Row>
   );
