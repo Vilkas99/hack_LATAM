@@ -11,23 +11,10 @@ const openNotificationWithIcon = ({ titulo, descripcion, type }) => {
 };
 */
 
-const openNotification = ({ tipo, titulo, descripcion, visible }) => {
-    if (visible) {
-        return (
-            notification[{ tipo }]({
-                message: { titulo },
-                description:
-                    { descripcion },
-            }
-            )
-        )
-    }
-}
-
 
 function Notification({ tipo, titulo, descripcion, visible }) {
     return (
-        openNotification(visible)
+        openNotification(tipo, titulo, descripcion,visible)
     )
 }
 
