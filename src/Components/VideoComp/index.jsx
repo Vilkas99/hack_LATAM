@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 
 import QuestLog from "../QuestLog";
+import Inventary from "../Inventary/index";
 
 const Descripcion = () => {
   const { Text } = Typography;
@@ -40,6 +41,7 @@ const Botones = () => {
         >
           Misiones
         </Button>
+        <Inventary visible={visibleItems} modEstado={setVisibleItems} />
         <Button
           icon={<HeatMapOutlined />}
           onClick={() => setVisibleItems(true)}
