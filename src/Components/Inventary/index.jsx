@@ -87,10 +87,15 @@ const TarjetaInventario = ({ habilidad, setHabilidad, habilidades }) => {
     );
 
     return (
-<img src={habilidad.icono} style={{ width: '48px', height: '48px' }} />
-       /* <Popover content={content} title={habilidad.nombre} trigger="hover">
-            
-        </Popover>*/
+        <Button
+            style={{ width: '48px', height: '48px',padding:'0' }}
+            onClick={(e) => handleClick(e, habilidad)}
+        >
+            <Popover content={content} title={habilidad.nombre} trigger="hover">
+                <img src={habilidad.icono} style={{ width: '48px', height: '48px' }} />
+            </Popover>
+        </Button>
+
     )
 }
 
