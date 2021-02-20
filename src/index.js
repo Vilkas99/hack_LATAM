@@ -6,16 +6,19 @@ import reportWebVitals from "./reportWebVitals";
 import Routes from "./routes/routes";
 import { FirebaseAppProvider } from "reactfire";
 import firebaseConfig from "./firebase-config";
-import { AuthProvider } from "./Utils/Auth";
+import { AuthProvider } from "./Utils/Auth"
+import { GlobalProvider } from "./Utils/Global"
 
 ReactDOM.render(
+  <GlobalProvider>
   <AuthProvider>
     <React.StrictMode>
       <Suspense fallback={<div>Loading... </div>}>
         <Routes />
-      </Suspense>
-    </React.StrictMode>
-  </AuthProvider>,
+        </Suspense>
+      </React.StrictMode>
+      </AuthProvider>
+      </GlobalProvider>,
   document.getElementById("root")
 );
 

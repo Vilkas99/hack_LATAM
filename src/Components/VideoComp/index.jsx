@@ -8,8 +8,11 @@ import {
   DollarTwoTone,
   ThunderboltTwoTone,
   NotificationTwoTone,
+  VideoCameraFilled,
+  AudioOutlined,
+  AudioMutedOutlined,
 } from "@ant-design/icons";
-
+import { useGlobal } from "../../Utils/Global";
 import QuestLog from "../QuestLog";
 import FormNotificaciones from "../FormNotificaciones";
 
@@ -86,7 +89,28 @@ const ContenidoCard = ({ tipo }) => {
   );
 };
 
+const NoCamera = () => {
+  return (
+    <div style={{ height: 250, backgroundColor: "#bfbfbf" }}>
+      <img
+        src="https://i.ibb.co/G061H2N/b-1.png"
+        style={{
+          height: 180,
+          width: 300,
+          opacity: "40%",
+          marginLeft: 45,
+          marginTop: 10,
+        }}
+      />
+    </div>
+  );
+};
+
 function VideoComponente({ userVideo, tipo }) {
+  const { currentMicrophone, currentVideo } = useGlobal();
+  console.log("Micro:", currentMicrophone);
+  console.log("Video:", currentVideo);
+
   useEffect(() => {
     console.log("Video usuario: ", userVideo);
   }, []);
@@ -94,7 +118,18 @@ function VideoComponente({ userVideo, tipo }) {
   return (
     <Card
       style={{ width: 450 }}
-      cover={<video playsInline muted ref={userVideo} autoPlay />}
+      cover={
+        currentVideo ? (
+          <video
+            playsInline
+            muted={!currentMicrophone}
+            ref={userVideo}
+            autoPlay
+          />
+        ) : (
+          <NoCamera />
+        )
+      }
     >
       <ContenidoCard tipo={tipo} />
     </Card>
