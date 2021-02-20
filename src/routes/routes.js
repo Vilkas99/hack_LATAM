@@ -1,14 +1,15 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "../pages/loginPage/login";
-import VideoLayout from "../pages/VideoLayout";
+
+const VideoPage = React.lazy(() => import("../pages/videoPage"));
 
 function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/room" component={VideoLayout} />
+        <Route exact path="/login" component={Login} />
+        <Route path="/room" component={VideoPage} />
       </Switch>
     </BrowserRouter>
   );

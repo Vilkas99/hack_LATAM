@@ -160,8 +160,8 @@ export default function QuestLog({ visible, modEstado }) {
       cancelButtonProps={{ style: { display: "none" } }}
     >
       <Col>
-        {misMisiones.map((mision) => (
-          <Row>
+        {misMisiones.map((mision, i) => (
+          <Row key={i}>
             <TarjetaMision
               mision={mision}
               setMision={setMisiones}
