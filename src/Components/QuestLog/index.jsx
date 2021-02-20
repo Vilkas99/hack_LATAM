@@ -78,11 +78,13 @@ const TarjetaMision = ({ mision, setMision, misiones }) => {
 
   const handleClick = (e, mision) => {
     e.preventDefault();
+
     notification.info({
       message: `Quest enviada`,
       description: `¡Se ha notificado al profesor que has terminado: ${mision.titulo} !`,
       placement: "topLeft",
     });
+
     socketRef.current.emit("QuestCompletado", {
       titulo: mision.titulo,
       usuario: "Reemplazar por nombre",

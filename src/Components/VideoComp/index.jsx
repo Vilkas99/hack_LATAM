@@ -7,10 +7,16 @@ import {
   BulbTwoTone,
   DollarTwoTone,
   ThunderboltTwoTone,
+  NotificationTwoTone,
+  VideoCameraFilled,
+  AudioOutlined,
+  AudioMutedOutlined,
 } from "@ant-design/icons";
-
+import { useGlobal } from "../../Utils/Global";
 import QuestLog from "../QuestLog";
 import Inventary from "../Inventary/index";
+import PerfilComp from "../PerfilComp";
+import FormNotificaciones from "../FormNotificaciones";
 
 const Descripcion = () => {
   const { Text } = Typography;
@@ -29,12 +35,19 @@ const Descripcion = () => {
 };
 
 const Botones = () => {
-  const [visibleQuest, setVisibleQuest] = useState(false);
+  const [visibleQuest, setVisibleQuest] = useState(false);  
   const [visibleItems, setVisibleItems] = useState(false);
+  const [visiblePerfil, setVisiblePerfil] = useState(false);
+  const [visibleFormNoti, setVisibleFormNoti] = useState(false);
   return (
     <Row style={{ marginTop: "20px" }}>
       <Space direction="horizontal">
-        <Button icon={<UserOutlined />}>Perfíl</Button>
+        <Button
+            icon={<UserOutlined />}
+            onClick={() => setVisiblePerfil(true)}
+          >
+            Perfil
+            </Button>
         <Button
           icon={<QuestionCircleOutlined />}
           onClick={() => setVisibleQuest(true)}
@@ -48,7 +61,19 @@ const Botones = () => {
         >
           Items
         </Button>
+        <Button
+          icon={<NotificationTwoTone />}
+          onClick={() => setVisibleFormNoti(true)}
+        >
+          Notificación
+        </Button>
         <QuestLog visible={visibleQuest} modEstado={setVisibleQuest} />
+        <PerfilComp visible={visiblePerfil} modEstado={setVisiblePerfil} />
+
+        <FormNotificaciones
+          visible={visibleFormNoti}
+          setVisible={setVisibleFormNoti}
+        />
       </Space>
     </Row>
   );
@@ -74,7 +99,28 @@ const ContenidoCard = ({ tipo }) => {
   );
 };
 
+const NoCamera = () => {
+  return (
+    <div style={{ height: 250, backgroundColor: "#bfbfbf" }}>
+      <img
+        src="https://i.ibb.co/G061H2N/b-1.png"
+        style={{
+          height: 180,
+          width: 300,
+          opacity: "40%",
+          marginLeft: 45,
+          marginTop: 10,
+        }}
+      />
+    </div>
+  );
+};
+
 function VideoComponente({ userVideo, tipo }) {
+  const { currentMicrophone, currentVideo } = useGlobal();
+  console.log("Micro:", currentMicrophone);
+  console.log("Video:", currentVideo);
+
   useEffect(() => {
     console.log("Video usuario: ", userVideo);
   }, []);
@@ -82,7 +128,18 @@ function VideoComponente({ userVideo, tipo }) {
   return (
     <Card
       style={{ width: 450 }}
-      cover={<video playsInline muted ref={userVideo} autoPlay />}
+      cover={
+        currentVideo ? (
+          <video
+            playsInline
+            muted={!currentMicrophone}
+            ref={userVideo}
+            autoPlay
+          />
+        ) : (
+          <NoCamera />
+        )
+      }
     >
       <ContenidoCard tipo={tipo} />
     </Card>

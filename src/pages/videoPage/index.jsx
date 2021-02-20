@@ -38,7 +38,7 @@ function VideoPage() {
     });
 
     socketRef.current.on("notification", (data) => {
-      console.log("I've recieved a NOTIFICATION");
+      console.log("I've recieved a NOTIFICATION", data);
     });
 
     socketRef.current.on("allUsers", (users) => {
