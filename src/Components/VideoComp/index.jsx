@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Avatar, Typography, Space, Button } from "antd";
 import {
   UserOutlined,
@@ -65,6 +65,10 @@ const ContenidoCard = () => {
 };
 
 function VideoComponente({ userVideo }) {
+  useEffect(() => {
+    console.log("Video usuario: ", userVideo);
+  }, []);
+
   return (
     <Card
       style={{ width: 450 }}
