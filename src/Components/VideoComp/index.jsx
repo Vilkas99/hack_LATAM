@@ -14,6 +14,8 @@ import {
 } from "@ant-design/icons";
 import { useGlobal } from "../../Utils/Global";
 import QuestLog from "../QuestLog";
+import Inventary from "../Inventary/index";
+import PerfilComp from "../PerfilComp";
 import FormNotificaciones from "../FormNotificaciones";
 
 const Descripcion = () => {
@@ -33,19 +35,26 @@ const Descripcion = () => {
 };
 
 const Botones = () => {
-  const [visibleQuest, setVisibleQuest] = useState(false);
+  const [visibleQuest, setVisibleQuest] = useState(false);  
   const [visibleItems, setVisibleItems] = useState(false);
+  const [visiblePerfil, setVisiblePerfil] = useState(false);
   const [visibleFormNoti, setVisibleFormNoti] = useState(false);
   return (
     <Row style={{ marginTop: "20px" }}>
       <Space direction="horizontal">
-        <Button icon={<UserOutlined />}>Perfíl</Button>
+        <Button
+            icon={<UserOutlined />}
+            onClick={() => setVisiblePerfil(true)}
+          >
+            Perfil
+            </Button>
         <Button
           icon={<QuestionCircleOutlined />}
           onClick={() => setVisibleQuest(true)}
         >
           Misiones
         </Button>
+        <Inventary visible={visibleItems} modEstado={setVisibleItems} />
         <Button
           icon={<HeatMapOutlined />}
           onClick={() => setVisibleItems(true)}
@@ -59,6 +68,7 @@ const Botones = () => {
           Notificación
         </Button>
         <QuestLog visible={visibleQuest} modEstado={setVisibleQuest} />
+        <PerfilComp visible={visiblePerfil} modEstado={setVisiblePerfil} />
 
         <FormNotificaciones
           visible={visibleFormNoti}

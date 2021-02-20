@@ -135,15 +135,15 @@ const TarjetaMision = ({ mision, setMision, misiones }) => {
               }}
             />
           ) : (
-            <CrownTwoTone
-              style={{
-                fontSize: "30px",
-                position: "absolute",
-                right: 40,
-                top: 20,
-              }}
-            />
-          )}
+              <CrownTwoTone
+                style={{
+                  fontSize: "30px",
+                  position: "absolute",
+                  right: 40,
+                  top: 20,
+                }}
+              />
+            )}
         </Popover>
       </Col>
     </Card>
