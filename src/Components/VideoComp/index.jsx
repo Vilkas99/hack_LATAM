@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Avatar, Typography, Space, Button } from "antd";
 import {
   UserOutlined,
@@ -31,25 +31,31 @@ const Descripcion = () => {
 };
 
 const Botones = () => {
-  const [visible, setVisible] = useState(false);
+  const [visibleQuest, setVisibleQuest] = useState(false);
+  const [visibleItems, setVisibleItems] = useState(false);
   return (
     <Row style={{ marginTop: "20px" }}>
       <Space direction="horizontal">
         <Button icon={<UserOutlined />}>Perfíl</Button>
         <Button
           icon={<QuestionCircleOutlined />}
-          onClick={() => setVisible(true)}
+          onClick={() => setVisibleQuest(true)}
         >
           Misiones
         </Button>
-        <Button icon={<HeatMapOutlined />}>Items</Button>
-        <QuestLog visible={visible} modEstado={setVisible} />
+        <Button
+          icon={<HeatMapOutlined />}
+          onClick={() => setVisibleItems(true)}
+        >
+          Items
+        </Button>
+        <QuestLog visible={visibleQuest} modEstado={setVisibleQuest} />
       </Space>
     </Row>
   );
 };
 
-const ContenidoCard = () => {
+const ContenidoCard = ({ tipo }) => {
   const { Meta } = Card;
   return (
     <Meta
@@ -58,48 +64,14 @@ const ContenidoCard = () => {
       }
       title="Víctor Mancera" //Reemplazar por el nombre del usuario
       description={
-        <Col>
-          <Descripcion />
-          <Botones />
-        </Col>
+        tipo != "Partner" && (
+          <Col>
+            <Descripcion />
+            <Botones />
+          </Col>
+        )
       }
     />
-  );
-};
-
-const MicCam = () => {
-  const {
-    changeMicro,
-    currentMicrophone,
-    changeVideo,
-    currentVideo,
-  } = useGlobal();
-
-  return (
-    <Row style={{ marginTop: "-70px", marginBottom: "50px" }}>
-      <Space direction="horizontal">
-        <Button
-          style={{
-            backgroundColor: currentVideo ? "#87ea26" : "red",
-            borderStyle: "none",
-          }}
-          type="primary"
-          shape="circle"
-          icon={<VideoCameraFilled />}
-          onClick={() => changeVideo()}
-        />
-        <Button
-          style={{
-            backgroundColor: currentMicrophone ? "#87ea26" : "red",
-            borderStyle: "none",
-          }}
-          type="primary"
-          shape="circle"
-          icon={currentMicrophone ? <AudioOutlined /> : <AudioMutedOutlined />}
-          onClick={() => changeMicro()}
-        />
-      </Space>
-    </Row>
   );
 };
 
@@ -121,10 +93,15 @@ const NoCamera = () => {
   );
 };
 
-function VideoComponente({ userVideo }) {
+function VideoComponente({ userVideo,tipo }) {
   const { currentMicrophone, currentVideo } = useGlobal();
   console.log("Micro:", currentMicrophone);
   console.log("Video:", currentVideo);
+
+  useEffect(() => {
+    console.log("Video usuario: ", userVideo);
+  }, []);
+
   return (
     <Card
       style={{ width: 450 }}
@@ -141,8 +118,7 @@ function VideoComponente({ userVideo }) {
         )
       }
     >
-      <MicCam />
-      <ContenidoCard />
+      <ContenidoCard tipo={tipo} />
     </Card>
   );
 }
