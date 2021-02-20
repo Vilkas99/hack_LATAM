@@ -74,7 +74,7 @@ let items_inicial = [
         descripcion: 'Te permite participar en el siguiente turno y ganar experiencia.',
     },
     {
-        icono: 'https://icons8.com/icon/42691/eliminar-libro',
+        icono: 'https://img.icons8.com/color/48/000000/remove-book.png',
         nombre: 'Reducir tarea (Item Especial)',
         descripcion: 'Reduce la cantidad de tarea asignada por el profesor segun su criterio, para hacer uso de este item tienen que activarlo todos en la clase.',
     },
