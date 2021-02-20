@@ -13,6 +13,15 @@
   }
 }
 
+body {
+  background: linear-gradient(270deg, #fc466b 0%, #3f5efb 100%);
+  background-size: 400% 400%;
+
+  -webkit-animation: AnimationName 20s ease infinite;
+  -moz-animation: AnimationName 20s ease infinite;
+  animation: AnimationName 20s ease infinite;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -34,5 +43,39 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 28%;
+  }
+  50% {
+    background-position: 100% 73%;
+  }
+  100% {
+    background-position: 0% 28%;
+  }
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 0% 28%;
+  }
+  50% {
+    background-position: 100% 73%;
+  }
+  100% {
+    background-position: 0% 28%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 28%;
+  }
+  50% {
+    background-position: 100% 73%;
+  }
+  100% {
+    background-position: 0% 28%;
   }
 }
