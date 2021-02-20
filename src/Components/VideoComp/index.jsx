@@ -28,25 +28,31 @@ const Descripcion = () => {
 };
 
 const Botones = () => {
-  const [visible, setVisible] = useState(false);
+  const [visibleQuest, setVisibleQuest] = useState(false);
+  const [visibleItems, setVisibleItems] = useState(false);
   return (
     <Row style={{ marginTop: "20px" }}>
       <Space direction="horizontal">
         <Button icon={<UserOutlined />}>Perfíl</Button>
         <Button
           icon={<QuestionCircleOutlined />}
-          onClick={() => setVisible(true)}
+          onClick={() => setVisibleQuest(true)}
         >
           Misiones
         </Button>
-        <Button icon={<HeatMapOutlined />}>Items</Button>
-        <QuestLog visible={visible} modEstado={setVisible} />
+        <Button
+          icon={<HeatMapOutlined />}
+          onClick={() => setVisibleItems(true)}
+        >
+          Items
+        </Button>
+        <QuestLog visible={visibleQuest} modEstado={setVisibleQuest} />
       </Space>
     </Row>
   );
 };
 
-const ContenidoCard = () => {
+const ContenidoCard = ({ tipo }) => {
   const { Meta } = Card;
   return (
     <Meta
@@ -55,16 +61,18 @@ const ContenidoCard = () => {
       }
       title="Víctor Mancera" //Reemplazar por el nombre del usuario
       description={
-        <Col>
-          <Descripcion />
-          <Botones />
-        </Col>
+        tipo != "Partner" && (
+          <Col>
+            <Descripcion />
+            <Botones />
+          </Col>
+        )
       }
     />
   );
 };
 
-function VideoComponente({ userVideo }) {
+function VideoComponente({ userVideo, tipo }) {
   useEffect(() => {
     console.log("Video usuario: ", userVideo);
   }, []);
@@ -74,7 +82,7 @@ function VideoComponente({ userVideo }) {
       style={{ width: 450 }}
       cover={<video playsInline muted ref={userVideo} autoPlay />}
     >
-      <ContenidoCard />
+      <ContenidoCard tipo={tipo} />
     </Card>
   );
 }

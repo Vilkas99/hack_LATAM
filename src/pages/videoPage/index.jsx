@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect, Suspense } from "react";
 import socket from "../../Utils/Socket/socket";
 import Peer from "simple-peer";
+import { Col, Row, Button, notification, Modal } from "antd";
+
+const VideoComponente = React.lazy(() => import("../../Components/VideoComp"));
 
 function VideoPage() {
   const [yourID, setYourID] = useState(""); //Id of the user
@@ -98,6 +101,8 @@ function VideoPage() {
 
   //Function that runs when the user accept the call
   function acceptCall() {
+    setReceivingCall(false);
+
     //We update our state
     setCallAccepted(true);
     const peer = new Peer({
@@ -123,27 +128,34 @@ function VideoPage() {
   }
 
   return (
-    <div>
-      {callAccepted && (
-        <div>
-          <h1>Video 2:</h1>
-          <video ref={partnerVideo} autoPlay playsInline></video>
-        </div>
-      )}
-      <h1>Video</h1>
+    <Row>
       {receivingCall && (
-        <div>
-          <button onClick={() => acceptCall()}>Contestar</button>
-        </div>
+        <Modal
+          title="¡Te están llamando!"
+          visible={receivingCall}
+          onOk={acceptCall}
+        />
       )}
-      <video ref={userVideo} muted playsInline autoPlay></video>
-      {Object.keys(users).map((key) => {
-        if (key === yourID) {
-          return null;
-        }
-        return <button onClick={() => callPeer(key)}>Llamar a {key}</button>;
-      })}
-    </div>
+      <Col span={8}>
+        {callAccepted && (
+          <>
+            <h1>Invitado</h1>
+            <VideoComponente userVideo={partnerVideo} tipo="Partner" />
+          </>
+        )}
+      </Col>
+      <Col span={8}>
+        <VideoComponente userVideo={userVideo} tipo="Us" />
+
+        {Object.keys(users).map((key) => {
+          if (key === yourID) {
+            return null;
+          }
+          return <button onClick={() => callPeer(key)}>Llamar a {key}</button>;
+        })}
+      </Col>
+      <Col span={8} />
+    </Row>
   );
 }
 
