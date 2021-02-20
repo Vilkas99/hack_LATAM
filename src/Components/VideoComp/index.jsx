@@ -13,6 +13,7 @@ import {
 } from "@ant-design/icons";
 import { useGlobal } from "../../Utils/Global";
 import QuestLog from "../QuestLog";
+import PerfilComp from "../PerfilComp";
 
 const Descripcion = () => {
   const { Text } = Typography;
@@ -31,12 +32,18 @@ const Descripcion = () => {
 };
 
 const Botones = () => {
-  const [visibleQuest, setVisibleQuest] = useState(false);
+  const [visibleQuest, setVisibleQuest] = useState(false);  
   const [visibleItems, setVisibleItems] = useState(false);
+  const [visiblePerfil, setVisiblePerfil] = useState(false);
   return (
     <Row style={{ marginTop: "20px" }}>
       <Space direction="horizontal">
-        <Button icon={<UserOutlined />}>Perfíl</Button>
+        <Button
+            icon={<UserOutlined />}
+            onClick={() => setVisiblePerfil(true)}
+          >
+            Perfil
+            </Button>
         <Button
           icon={<QuestionCircleOutlined />}
           onClick={() => setVisibleQuest(true)}
@@ -50,6 +57,7 @@ const Botones = () => {
           Items
         </Button>
         <QuestLog visible={visibleQuest} modEstado={setVisibleQuest} />
+        <PerfilComp visible={visiblePerfil} modEstado={setVisiblePerfil} />
       </Space>
     </Row>
   );
