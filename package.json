@@ -6,23 +6,17 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-<<<<<<< HEAD
     "antd": "^4.12.3",
     "firebase": "^8.2.9",
-=======
     "node-sass": "^5.0.0",
->>>>>>> 83a1df5a18628da25ea4fc8df43cfb1968685795
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
-<<<<<<< HEAD
     "reactfire": "^3.0.0-rc.0",
-=======
     "simple-peer": "^9.9.3",
     "socket.io-client": "^3.1.1",
     "video-react": "^0.14.1",
->>>>>>> 83a1df5a18628da25ea4fc8df43cfb1968685795
     "web-vitals": "^1.0.1"
   },
   "scripts": {
