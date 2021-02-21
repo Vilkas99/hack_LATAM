@@ -10,8 +10,12 @@
 }
 
 .precio {
-    width: 50px;
+    width: 40px;
     border-radius: 5px;
     background-color: #FFFFFF;
-    
+    margin-left: 3px;
+    margin-top: -5px;
+}
+.precio > h5{
+    color: #7CA357;
 }

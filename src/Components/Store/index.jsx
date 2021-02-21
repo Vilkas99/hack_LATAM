@@ -22,7 +22,7 @@ import {
 } from "@ant-design/icons";
 
 import socket from "../../Utils/Socket/socket";
-import styles from '../Inventary/index.css';
+import styles from '../Store/index.css';
 
 let items_tienda = [
     {
@@ -35,67 +35,67 @@ let items_tienda = [
         icono: 'https://img.icons8.com/color/48/000000/diamond-ring.png',
         nombre: 'Anillo de invisibilidad',
         descripcion: 'Puedes apagar la camara durante la sesion',
-        precio: 200,
+        precio: 300,
     },
     {
         icono: 'https://img.icons8.com/color/48/000000/magical-scroll.png',
         nombre: 'Receta secreta',
         descripcion: 'Aumenta experiencia',
-        precio: 200,
+        precio: 500,
     },
     {
         icono: 'https://img.icons8.com/color/48/000000/dice.png',
         nombre: 'Dado mágico',
         descripcion: 'Dependiendo del valor resultante se multiplican tus puntos',
-        precio: 200,
+        precio: 1000,
     },
     {
         icono: 'https://img.icons8.com/color/48/000000/shield.png',
         nombre: 'Escudo',
         descripcion: 'Te protege de una amonestacion',
-        precio: 200,
+        precio: 1500,
     },
     {
         icono: 'https://img.icons8.com/color/48/000000/poison-bottle.png',
         nombre: 'Pocion de veneno',
         descripcion: 'CUIDADO no consumir',
-        precio: 200,
+        precio: 60,
     },
     {
         icono: 'https://img.icons8.com/color/48/000000/greek-helmet.png',
         nombre: 'Casco de guerra',
         descripcion: 'Para mas FPS',
-        precio: 200,
+        precio: 400,
     },
     {
         icono: 'https://img.icons8.com/color/48/000000/three-leaf-clover.png',
         nombre: 'Trévol de suerte',
         descripcion: 'Aumenta la posibilidad de que te toque participar y sumar puntos',
-        precio: 200,
+        precio: 900,
     },
     {
         icono: 'https://img.icons8.com/color/48/000000/snorlax.png',
         nombre: 'Snorlax',
         descripcion: 'Te libra de una penalizacion por llegar tarde por quedarte dormido',
-        precio: 200,
+        precio: 7000,
     },
     {
         icono: 'https://img.icons8.com/color/48/000000/buzzer.png',
         nombre: 'Botón de participación',
         descripcion: 'Te permite participar en el siguiente turno y ganar experiencia.',
-        precio: 200,
+        precio: 1500,
     },
     {
         icono: 'https://img.icons8.com/color/48/000000/remove-book.png',
         nombre: 'Reducir tarea (Item Especial)',
         descripcion: 'Reduce la cantidad de tarea asignada por el profesor segun su criterio, para hacer uso de este item tienen que activarlo todos en la clase.',
-        precio: 200,
+        precio: 9500,
     },
     {
         icono: 'https://img.icons8.com/color/48/000000/story-time.png',
         nombre: 'Tiempo extra (Item Especial)',
         descripcion: 'Aumenta el tiempo de una práctica o examen para los estudiantes segun el criterio del profesor, para hacer uso de este item tienen que activarlo todos en la clase.',
-        precio: 200,
+        precio: 9800,
     },
 ];
 
@@ -120,7 +120,7 @@ const TarjetaStore = ({ producto, setProducto, productos }) => {
             titulo: producto.nombre,
             usuario: "Reemplazar por nombre",
         });
-        setHabilidad(habilidades.filter((elemento) => elemento != habilidad));
+        setProducto(productos.filter((elemento) => elemento != producto));
     };
 
     const content = (
@@ -135,9 +135,11 @@ const TarjetaStore = ({ producto, setProducto, productos }) => {
             onClick={(e) => handleClick(e, producto)}
         >
             <Popover content={content} title={producto.nombre} trigger="hover">
-                <img src={producto.icono} style={{ width: '48px', height: '48px', padding: '2px' }} />
-                <div class="precio">
-                    <h4>{producto.precio} P</h4>
+                <div className="item-producto">
+                    <img src={producto.icono} style={{ width: '48px', height: '48px', padding: '2px' }} />
+                    <div class="precio">
+                        <h5>{producto.precio} P</h5>
+                    </div>
                 </div>
             </Popover>
         </Button>
@@ -166,7 +168,7 @@ function Store({ visible, modEstado }) {
             <Col>
                 <Row>
                     <div class="productos">
-                        {misItems.map((item, i) => (
+                        {misProductos.map((item, i) => (
                             <TarjetaStore key={i}
                                 producto={item}
                                 setProducto={setProductos}

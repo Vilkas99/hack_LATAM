@@ -23,7 +23,7 @@ import {
 
 import socket from "../../Utils/Socket/socket";
 import styles from "../Inventary/index.css";
-
+import Store from "../Store/index"
 
 
 let items_uso = [
@@ -142,21 +142,23 @@ const onSearch = value => console.log(value);
 
 function Inventary({ visible, modEstado }) {
     const [misItems, setItems] = useState(items_uso);
+    const [visibleStore, setStore] = useState(false);
     const hideModal = () => {
         this.setState({
             visible: false,
         });
     };
     return (
+        <>
         <Modal
             title="Inventario"
             centered
-            visible={visible}
-            onOk={() => modEstado(false)}
-            onCancel={() => hideModal()}
+            visible={visible}            
             cancelButtonProps={{ style: { display: "none" } }}
-            okText="Salir"
-            cancelText="Ir a la Tienda"
+            footer={[
+                <Button key="1" onClick={()=>setStore(true)}>Ir a Tienda</Button>,
+                <Button key="2" onClick={()=>modEstado(false)}>Salir</Button>
+              ]}
         >
             <Col>
                 <Row>
@@ -198,6 +200,8 @@ function Inventary({ visible, modEstado }) {
                 </Row>
             </Col>
         </Modal>
+        <Store visible={visibleStore} modEstado={setStore}/>
+        </>
     )
 }
 
