@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, Suspense } from "react";
 import socket from "../../Utils/Socket/socket";
 import Peer from "simple-peer";
 import { Col, Row, Button, notification, Modal } from "antd";
+import notificacion from "../../Components/Notificacion";
 
 const VideoComponente = React.lazy(() => import("../../Components/VideoComp"));
 
@@ -39,6 +40,7 @@ function VideoPage() {
 
     socketRef.current.on("notification", (data) => {
       console.log("I've recieved a NOTIFICATION", data);
+      notificacion(data);
     });
 
     socketRef.current.on("allUsers", (users) => {

@@ -14,6 +14,7 @@ import {
 } from "@ant-design/icons";
 import { useGlobal } from "../../Utils/Global";
 import QuestLog from "../QuestLog";
+import Inventary from "../Inventary/index";
 import PerfilComp from "../PerfilComp";
 import FormNotificaciones from "../FormNotificaciones";
 
@@ -50,6 +51,7 @@ const Botones = () => {
         >
           Misiones
         </Button>
+        <Inventary visible={visibleItems} modEstado={setVisibleItems} />
         <Button
           icon={<HeatMapOutlined />}
           onClick={() => setVisibleItems(true)}

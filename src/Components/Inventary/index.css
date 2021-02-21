@@ -1,0 +1,47 @@
+.header__input {
+    display: flex;
+    align-items: center;
+    background-color: #eff2f5;
+    padding: 10px;
+    width: 500px;
+    margin-left: 10px;
+    border-radius: 999px;
+}
+
+input{
+    outline-width: 0;
+    border: none;
+    margin: 0 10px;
+    border-radius: 999px; 
+    background-color: #eff2f5;
+}
+
+.habilidad-uso{
+    background-color: #D3DFFE;
+    margin-top: 30px;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.habilidad-disponibles{
+    background-color: #FEE4BD;
+    margin-top: 30px;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;  
+}
+
+.habilidad-no-disponibles{
+    background-color: #E1FFBD;
+    margin-top: 30px;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;  
+}
