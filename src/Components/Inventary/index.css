@@ -24,6 +24,7 @@ input{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    align-content: center;
 }
 
 .habilidad-disponibles{
@@ -33,7 +34,8 @@ input{
     padding: 25px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;  
+    align-items: center;
+    align-content: center;  
 }
 
 .habilidad-no-disponibles{
@@ -43,5 +45,6 @@ input{
     padding: 25px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;  
+    align-items: center; 
+    align-content: center; 
 }
