@@ -18,9 +18,11 @@ import {
     UserOutlined,
     EuroCircleTwoTone,
     CrownTwoTone,
+    SearchOutlined,
 } from "@ant-design/icons";
 
 import socket from "../../Utils/Socket/socket";
+import styles from '../Inventary/index.css';
 
 let items_inicial = [
     {
@@ -118,11 +120,11 @@ const TarjetaInventario = ({ habilidad, setHabilidad, habilidades }) => {
 
     return (
         <Button
-            style={{ width: '48px', height: '48px',padding:'0', margin:'10px'}}
+            style={{ width: '48px', height: '48px', padding: '0', margin: '10px', backgroundColor:'rgba(33,33,33,0.10)',borderColor:'transparent', borderRadius:'5px', cursor:'pointer' } }
             onClick={(e) => handleClick(e, habilidad)}
         >
             <Popover content={content} title={habilidad.nombre} trigger="hover">
-                <img src={habilidad.icono} style={{ width: '48px', height: '48px' }} />
+                <img src={habilidad.icono} style={{ width: '48px', height: '48px', padding:'2px' }} />
             </Popover>
         </Button>
 
@@ -131,12 +133,13 @@ const TarjetaInventario = ({ habilidad, setHabilidad, habilidades }) => {
 
 
 const onSearch = value => console.log(value);
+
 function Inventary({ visible, modEstado }) {
     const [misItems, setItems] = useState(items_inicial);
 
     return (
         <Modal
-            title="Inventario"
+        title="Inventario"
             centered
             visible={visible}
             onOk={() => modEstado(false)}
@@ -144,10 +147,13 @@ function Inventary({ visible, modEstado }) {
         >
             <Col>
                 <Row>
-                    <Search placeholder="Buscar en el inventario" allowClear onSearch={onSearch} style={{ width: 300 }} />
+                    <div className="header__input">
+                        <SearchOutlined fontSize="large" style={{margin:'5px'}} />
+                        <input placeholder="Buscar en el inventario" type="text" />
+                    </div>
                 </Row>
                 <Row>
-                    <Card>
+                    <div class="habilidad-uso">
                         {misItems.map((item, i) => (
                             <TarjetaInventario key={i}
                                 habilidad={item}
@@ -155,7 +161,27 @@ function Inventary({ visible, modEstado }) {
                                 habilidades={misItems}
                             />
                         ))}
-                    </Card>
+                    </div>
+
+                    <div class="habilidad-disponibles">
+                        {misItems.map((item, i) => (
+                            <TarjetaInventario key={i}
+                                habilidad={item}
+                                setHabilidad={setItems}
+                                habilidades={misItems}
+                            />
+                        ))}
+                    </div>
+                    
+                    <div class="habilidad-no-disponibles">
+                        {misItems.map((item, i) => (
+                            <TarjetaInventario key={i}
+                                habilidad={item}
+                                setHabilidad={setItems}
+                                habilidades={misItems}
+                            />
+                        ))}
+                    </div>
                 </Row>
             </Col>
         </Modal>
