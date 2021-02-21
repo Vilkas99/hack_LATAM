@@ -83,3 +83,9 @@
     transform: rotate(22deg)
   }
 }
+.rote {
+  transition:.5s;
+  &:hover{   
+    transform: rotate(22deg)
+  }
+}

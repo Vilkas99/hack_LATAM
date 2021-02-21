@@ -34,19 +34,16 @@ const Descripcion = () => {
 };
 
 const Botones = () => {
-  const [visibleQuest, setVisibleQuest] = useState(false);  
+  const [visibleQuest, setVisibleQuest] = useState(false);
   const [visibleItems, setVisibleItems] = useState(false);
   const [visiblePerfil, setVisiblePerfil] = useState(false);
   const [visibleFormNoti, setVisibleFormNoti] = useState(false);
   return (
     <Row style={{ marginTop: "20px" }}>
       <Space direction="horizontal">
-        <Button
-            icon={<UserOutlined />}
-            onClick={() => setVisiblePerfil(true)}
-          >
-            Perfil
-            </Button>
+        <Button icon={<UserOutlined />} onClick={() => setVisiblePerfil(true)}>
+          Perfil
+        </Button>
         <Button
           icon={<QuestionCircleOutlined />}
           onClick={() => setVisibleQuest(true)}
@@ -114,6 +111,41 @@ const NoCamera = () => {
   );
 };
 
+const MicCam = () => {  
+  const {
+    changeMicro,
+    currentMicrophone,
+    changeVideo,
+    currentVideo,
+  } = useGlobal();
+
+  return (    
+    <Row style={{ marginTop: "-70px", marginBottom: "50px" }}>
+      <Space direction="horizontal">      
+        <Button
+          style={{
+            backgroundColor: currentVideo ? "#87ea26" : "red",
+            borderStyle: "none",
+          }}
+          type="primary"
+          shape="circle"         
+          icon={<VideoCameraFilled />}
+          onClick={() => changeVideo()}
+        />
+        <Button
+          style={{
+            backgroundColor: currentMicrophone ? "#87ea26" : "red",
+            borderStyle: "none",
+          }}
+          type="primary"
+          shape="circle"         
+          icon={currentMicrophone ? <AudioOutlined /> : <AudioMutedOutlined />}
+          onClick={() => changeMicro()}
+        />
+      </Space>
+    </Row>
+  )};
+
 function VideoComponente({ userVideo, tipo }) {
   const { currentMicrophone, currentVideo } = useGlobal();
   console.log("Micro:", currentMicrophone);
@@ -139,6 +171,7 @@ function VideoComponente({ userVideo, tipo }) {
         )
       }
     >
+                <MicCam/>
       <ContenidoCard tipo={tipo} />
     </Card>
   );
