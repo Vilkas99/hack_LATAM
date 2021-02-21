@@ -1,0 +1,17 @@
+.productos {
+    background-color: #FED2D2;
+    margin-top: 30px;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;  
+}
+
+.precio {
+    width: 50px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    
+}
