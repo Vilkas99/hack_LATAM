@@ -4,6 +4,7 @@ import { DollarTwoTone, CrownTwoTone } from "@ant-design/icons";
 import UseAnimations from "react-useanimations";
 import alertCircle from "react-useanimations/lib/alertCircle";
 import socket from "../../Utils/Socket/socket";
+import { useDispatch, useSelector } from "react-redux";
 
 const ContenidoTitulo = ({ titulo, color }) => {
   return (
@@ -49,7 +50,7 @@ const ContenidoMisionCompletada = ({ data }) => {
     }
 
     console.log("Que estamos mandando? ", miData);
-    socket.emit("creandoNotificacion", miData);
+    socket.emit("misionCompletada", miData);
   };
   return (
     <Space direction="vertical">

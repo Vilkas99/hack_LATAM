@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Row,
   Col,
@@ -82,6 +83,7 @@ let misiones_inicial = [
 const TarjetaMision = ({ mision, setMision, misiones }) => {
   const { Text } = Typography;
   const socketRef = useRef(); //Socket
+  let keyTo = useSelector((state) => state.invitado.keyId);
 
   useEffect(() => {
     socketRef.current = socket; //Conectamos el socjet
@@ -104,6 +106,7 @@ const TarjetaMision = ({ mision, setMision, misiones }) => {
         tipo: "misionCompletada",
         tipoRecompensa: mision.tipo,
         puntos: mision.recompensa,
+        to: keyTo,
       };
     } else {
       miData = {
@@ -113,6 +116,7 @@ const TarjetaMision = ({ mision, setMision, misiones }) => {
         tipo: "misionCompletada",
         nombreItem: mision.recompensa.nombreItem,
         descripcionItem: mision.recompensa.descripcionItem,
+        to: keyTo,
       };
     }
 

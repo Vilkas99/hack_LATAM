@@ -131,7 +131,7 @@ function VideoPage() {
     socketRef.current.on("callAccepted", (data) => {
       //We suscribe to the event "callAccepted"
       console.log("La señal fue aceptada");
-
+      dispatch(key(data.from));
       setCallAccepted(true); //We set that the call is accepted
       peer.signal(data.signal); //We send a signal
     });
@@ -153,7 +153,11 @@ function VideoPage() {
     //We suscribe to the signal
     peer.on("signal", (data) => {
       //We emit "acceptCall" to the other user
-      socketRef.current.emit("acceptCall", { signal: data, to: caller });
+      socketRef.current.emit("acceptCall", {
+        signal: data,
+        to: caller,
+        from: yourID,
+      });
     });
 
     //We suscribe to the stream

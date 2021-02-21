@@ -3,6 +3,7 @@ import ContenidoPuntos from "./Puntos";
 import ContenidoItem from "./Item";
 import ContenidoMision from "./Mision";
 import { Drawer, Form, Button, Col, Row, Select, Cascader } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import socket from "../../Utils/Socket/socket";
 
 const opciones = [
@@ -30,7 +31,10 @@ function FormNotificaciones({ visible, setVisible }) {
   const [descripcionItem, setDescripcionItem] = useState("");
   const [datosRecompensa, setDatosRecompensa] = useState({ puntos: 0 });
 
+  let keyTo = useSelector((state) => state.invitado.keyId);
+
   useEffect(() => {
+    console.log("La key: ", keyTo);
     console.log("El estado", tipo);
   }, [tipo]);
 
@@ -48,18 +52,21 @@ function FormNotificaciones({ visible, setVisible }) {
         tipoRecompensa,
         recompensa: datosRecompensa,
         tipo,
+        to: keyTo,
       };
       console.log("Hemos registrado una misión: ", data);
     } else if (tipo == "puntos") {
       data = {
         puntos,
         tipo,
+        to: keyTo,
       };
     } else {
       data = {
         nombreItem,
         descripcionItem,
         tipo,
+        to: keyTo,
       };
     }
 

@@ -13,16 +13,15 @@ import store from "./store";
 
 ReactDOM.render(
   <GlobalProvider>
-    <Provider store={store}>
-      <AuthProvider>
-        <React.StrictMode>
-          <Suspense fallback={<div>Loading... </div>}>
-            <Routes />
-          </Suspense>
-        </React.StrictMode>
-      </AuthProvider>
-    </Provider>
+    <AuthProvider>
+      <React.StrictMode>
+        <Suspense fallback={<div>Loading... </div>}>
+          <Routes />
+        </Suspense>
+      </React.StrictMode>
+    </AuthProvider>
   </GlobalProvider>,
+
   document.getElementById("root")
 );
 
