@@ -133,8 +133,8 @@ const TarjetaInventario = ({ habilidad, setHabilidad, habilidades }) => {
   return (
     <Button
       style={{
-        width: "48px",
-        height: "48px",
+        width: "70px",
+        height: "70px",
         padding: "0",
         margin: "10px",
         backgroundColor: "rgba(33,33,33,0.10)",
@@ -147,7 +147,7 @@ const TarjetaInventario = ({ habilidad, setHabilidad, habilidades }) => {
       <Popover content={content} title={habilidad.nombre} trigger="hover">
         <img
           src={habilidad.icono}
-          style={{ width: "48px", height: "48px", padding: "2px" }}
+          style={{ width: "60px", height: "60px", padding: "2px" }}
         />
       </Popover>
     </Button>
