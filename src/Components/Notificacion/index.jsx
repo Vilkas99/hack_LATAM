@@ -22,8 +22,7 @@ const ContenidoTitulo = ({ titulo, color }) => {
 
 const ContenidoItem = ({ data }) => {
   const handleOtorgarRecompensa = () => {
-    const miData = {};
-
+    let miData = {};
     if (data.tipo == "puntos") {
       miData = {
         puntos: data.puntos,
@@ -44,7 +43,11 @@ const ContenidoItem = ({ data }) => {
       <CrownTwoTone size={36} />
       <h3>Recompensa: {data.nombreItem} </h3>
       <h4>{data.descripcionItem} </h4>
-      <Button onClick={() => data.tipo}>Otorgan recompensa</Button>
+      {data.tipo == "misionCompletada  " && (
+        <Button onClick={() => handleOtorgarRecompensa(data)}>
+          Otorgar recompensa
+        </Button>
+      )}
     </Space>
   );
 };
@@ -96,7 +99,10 @@ function notificacion(data) {
     descripcion = <ContenidoItem data={data} />;
   } else if (data.tipo == "misionCompletada") {
     titulo = (
-      <ContenidoTitulo titulo="¡Se ha completado una misión!" color="#943bd9" />
+      <ContenidoTitulo
+        titulo={`¡Se ha completado una misión: ${data.titulo}!`}
+        color="#943bd9"
+      />
     );
 
     descripcion = <ContenidoMisionCompletada data={data} />;
