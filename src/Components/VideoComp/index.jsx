@@ -162,13 +162,15 @@ const MicCam = () => {
 };
 
 function VideoComponente({ userVideo, tipo }) {
-  const datos = useSelector((state) => state.user.metaDatos);
+  let datosUs = useSelector((state) => state.user.metaDatos);
+  let datosInv = useSelector((state) => state.invitado.metaDatos);
+
   const { currentMicrophone, currentVideo } = useGlobal();
   console.log("Micro:", currentMicrophone);
   console.log("Video:", currentVideo);
 
   useEffect(() => {
-    console.log("Mis datos: ", datos);
+    console.log("Mis datos: ", datosUs);
     console.log("Video usuario: ", userVideo);
   }, []);
 
@@ -189,7 +191,7 @@ function VideoComponente({ userVideo, tipo }) {
       }
     >
       <MicCam />
-      <ContenidoCard tipo={tipo} datos={datos} />
+      <ContenidoCard tipo={tipo} datos={tipo == "Us" ? datosUs : datosInv} />
     </Card>
   );
 }

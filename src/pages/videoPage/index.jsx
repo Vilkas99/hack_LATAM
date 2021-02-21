@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import notificacion from "../../Components/Notificacion";
 import { db } from "../../firebase-config";
 import { metaDatos } from "../../store/user";
+import { key, invitadoDatos } from "../../store/invitado";
 
 const VideoComponente = React.lazy(() => import("../../Components/VideoComp"));
 
@@ -17,17 +18,21 @@ function VideoPage() {
   const [caller, setCaller] = useState(""); //User that call you
   const [callerSignal, setCallerSignal] = useState(); //Signal of the caller
   const [callAccepted, setCallAccepted] = useState(false); //Boolean that shows if the user accepted the call
-  const [callerDatos, setCallerDatos] = useState({}); //Boolean that shows if the user accepted the call
 
   const userVideo = useRef(); //Reference for the video
   const partnerVideo = useRef(); //Reference for the video od the other user
   const socketRef = useRef();
   const dispatch = useDispatch();
   const correo = useSelector((state) => state.user);
-  const misDatos = useSelector((state) => state.user.metaData);
+  const misDatos = useSelector((state) => state.user.metaDatos);
 
   const fetchBaseDatos = async (correo, dispatch) => {
-    console.log("pasamos el correo: ", correo.user.username);
+    if (correo.user == null) {
+      correo.user = "prueba@gmail.com";
+    } else {
+      console.log("pasamos el correo: ", correo.user.username);
+    }
+
     let docRef = db.collection("users");
     await docRef
       .get()
@@ -81,7 +86,9 @@ function VideoPage() {
       setReceivingCall(true); //We set that we have a receiving call
       setCaller(data.from); //We set who is the caller
       setCallerSignal(data.signal); //We set the caller signal
-      setCallerDatos(data.metaDatos);
+      console.log("HE RECIBIDO LOS META DATOS DE MI PANITA: ", data.metaData);
+      dispatch(invitadoDatos(data.metaData));
+      dispatch(key(data.from));
     });
   }, []);
 
@@ -100,6 +107,7 @@ function VideoPage() {
     peer.on("signal", (data) => {
       //When we recieve a "signal"
       console.log("Lanzando una señal desde el peer");
+      console.log("Para mis panitas: ", misDatos);
       socketRef.current.emit("callUser", {
         //We emmit an event (callUser) passing the id, the data and our id
         userToCall: id,
