@@ -48,3 +48,39 @@ input{
     align-items: center; 
     align-content: center; 
 }
+
+.subtitulo-uso {
+    color: #6f8de0;
+    display: block;
+    width: 400px;
+}
+
+.subtitulo-disp {
+    color: #dfa656;
+    display: block;
+    width: 400px;
+}
+
+.subtitulo-no-disp {
+    color: #96cc54;
+    display: block;
+    width: 400px;
+}
+
+.habilidad-uso .extremos {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+.contenedor {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.contenedor-primario {
+    width: 400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}

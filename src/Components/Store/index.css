@@ -1,7 +1,7 @@
 .productos {
     background-color: #FED2D2;
-    margin-top: 30px;
     border-radius: 20px;
+    margin: 0 auto;
     padding: 25px;
     display: flex;
     flex-wrap: wrap;
@@ -10,12 +10,25 @@
 }
 
 .precio {
-    width: 40px;
+    width: 50px;
     border-radius: 5px;
     background-color: #FFFFFF;
-    margin-left: 3px;
-    margin-top: -5px;
+    margin-left: 8px;
+    margin-top: -4px;
+    box-shadow: 2px 2px 2px #5a5a5a;
 }
 .precio > h5{
     color: #7CA357;
+}
+
+.contenedor-primario {
+    width: 400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.subtitulo-disp {
+    color: #d36264;
 }

@@ -112,8 +112,8 @@ const TarjetaStore = ({ producto, setProducto, productos }) => {
     const handleClick = (e, producto) => {
         e.preventDefault();
         notification.info({
-            message: `Habilidad Activada`,
-            description: `¡Acabas de utlitizar la habilidad: ${producto.nombre}, por un total de ${producto.precio} puntos !`,
+            message: `Habilidad Comprada`,
+            description: `¡Acabas de comprar la habilidad: ${producto.nombre}, por un total de ${producto.precio} puntos !`,
             placement: "topLeft",
         });
         socketRef.current.emit("Habilidad Activada", {
@@ -124,21 +124,21 @@ const TarjetaStore = ({ producto, setProducto, productos }) => {
     };
 
     const content = (
-        <h6 style={{ marginTop: "15px", marginRight: "20px" }}>
+        <h4 style={{ marginTop: "15px", marginRight: "20px" }}>
             {producto.descripcion}
-        </h6>
+        </h4>
     );
 
     return (
         <Button
-            style={{ width: '48px', height: '48px', padding: '0', margin: '10px', backgroundColor: '#E57C7E', borderColor: 'transparent', borderRadius: '5px', cursor: 'pointer' }}
+            style={{ width: '70px', height: '70px', padding: '0', margin: '10px', backgroundColor: '#E57C7E', borderColor: 'transparent', borderRadius: '5px', cursor: 'pointer' }}
             onClick={(e) => handleClick(e, producto)}
         >
             <Popover content={content} title={producto.nombre} trigger="hover">
                 <div className="item-producto">
-                    <img src={producto.icono} style={{ width: '48px', height: '48px', padding: '2px' }} />
+                    <img src={producto.icono} style={{ width: '60px', height: '60px', padding: '2px' }} />
                     <div class="precio">
-                        <h5>{producto.precio} P</h5>
+                        <h4>{producto.precio} P</h4>
                     </div>
                 </div>
             </Popover>
@@ -168,13 +168,16 @@ function Store({ visible, modEstado }) {
             <Col>
                 <Row>
                     <div class="productos">
-                        {misProductos.map((item, i) => (
-                            <TarjetaStore key={i}
-                                producto={item}
-                                setProducto={setProductos}
-                                productos={misProductos}
-                            />
-                        ))}
+                        <h2 className="subtitulo-disp">Habilidades Disponibles</h2>
+                        <div className="contenedor-primario">
+                            {misProductos.map((item, i) => (
+                                <TarjetaStore key={i}
+                                    producto={item}
+                                    setProducto={setProductos}
+                                    productos={misProductos}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </Row>
             </Col>
