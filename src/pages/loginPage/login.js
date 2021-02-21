@@ -1,4 +1,6 @@
 import React, { Component, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ingresar, logout } from "../../store/user";
 import { Form, Input, Button, Tabs } from "antd";
 import {
   UserOutlined,
@@ -13,18 +15,22 @@ import { useAuth } from "../../Utils/Auth";
 const { TabPane } = Tabs;
 
 const Login = () => {
-
   const { login, signUp } = useAuth();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
   const [success, setSuccess] = useState(false);
 
   const SubmitLogin = async (values) => {
     console.log(values.username, values.password);
     login(values.username, values.password);
+    dispatch(ingresar(values));
     setSuccess(true);
   };
 
   const registerUser = (values) => {
     signUp(values.email, values.password, values.name, values.code);
+    let username = values.email;
+    dispatch(ingresar({ username }));
     setSuccess(true);
   };
 

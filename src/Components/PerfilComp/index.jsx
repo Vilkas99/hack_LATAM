@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Row,
   Col,
@@ -73,27 +74,27 @@ const Buttons = ({ user }) => {
   );
 };
 
-const CardPerfil = ({ user }) => {
+const CardPerfil = ({ datos }) => {
   const { Text } = Typography;
 
   return (
     <div>
       <div class="img-avatar">
-        <Text className="avatar">{user.level}</Text>
+        <Text className="avatar">{datos.level}</Text>
       </div>
       <div class="card-text">
         <div class="portada"></div>
         <div class="title-total">
-          <div class="title">{user.type}</div>
-          <h2 className="h2-name">{user.name}</h2>
-          <div className="subtitle">{user.points} points</div>
+          <div class="title">{datos.type}</div>
+          <h2 className="h2-name">{datos.name}</h2>
+          <div className="subtitle">{datos.points} points</div>
 
           <div class="desc">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
             illo, omnis accusantium numquam saepe ullam voluptates
             necessitatibus alias provident odio!
           </div>
-          <Buttons user={user} />
+          <Buttons user={datos} />
         </div>
       </div>
     </div>
@@ -102,7 +103,7 @@ const CardPerfil = ({ user }) => {
 
 export default function PerfilComp({ visible, modEstado }) {
   //   const [misMisiones, setMisiones] = useState(misiones_inicial);
-
+  const datos = useSelector((state) => state.user.metaDatos);
   return (
     <Modal
       title="Profile"
@@ -111,7 +112,7 @@ export default function PerfilComp({ visible, modEstado }) {
       onOk={() => modEstado(false)}
       cancelButtonProps={{ style: { display: "none" } }}
     >
-      <CardPerfil user={user} />
+      <CardPerfil datos={datos} />
     </Modal>
   );
 }

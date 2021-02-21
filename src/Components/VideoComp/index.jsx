@@ -17,16 +17,17 @@ import QuestLog from "../QuestLog";
 import Inventary from "../Inventary/index";
 import PerfilComp from "../PerfilComp";
 import FormNotificaciones from "../FormNotificaciones";
+import { useDispatch, useSelector } from "react-redux";
 
-const Descripcion = () => {
+const Descripcion = ({ datos }) => {
   const { Text } = Typography;
   return (
     <Row>
       <Space direction="horizontal">
         <BulbTwoTone />
-        <Text strong>Nivel: 24</Text>
+        <Text strong>Nivel: {datos.level}</Text>
         <DollarTwoTone />
-        <Text strong>Puntos: 350</Text>
+        <Text strong>Puntos: {datos.points}</Text>
         <ThunderboltTwoTone />
         <Text strong>Misiones completadas: 10</Text>
       </Space>
@@ -34,7 +35,7 @@ const Descripcion = () => {
   );
 };
 
-const Botones = () => {
+const Botones = ({ tipo }) => {
   const [visibleQuest, setVisibleQuest] = useState(false);
   const [visibleItems, setVisibleItems] = useState(false);
   const [visiblePerfil, setVisiblePerfil] = useState(false);
@@ -42,28 +43,38 @@ const Botones = () => {
   return (
     <Row style={{ marginTop: "20px" }}>
       <Space direction="horizontal">
-        <Button icon={<UserOutlined />} onClick={() => setVisiblePerfil(true)}>
-          Perfil
-        </Button>
-        <Button
-          icon={<QuestionCircleOutlined />}
-          onClick={() => setVisibleQuest(true)}
-        >
-          Misiones
-        </Button>
-        <Inventary visible={visibleItems} modEstado={setVisibleItems} />
-        <Button
-          icon={<HeatMapOutlined />}
-          onClick={() => setVisibleItems(true)}
-        >
-          Items
-        </Button>
-        <Button
-          icon={<NotificationTwoTone />}
-          onClick={() => setVisibleFormNoti(true)}
-        >
-          Notificación
-        </Button>
+        {tipo == "TEACHER" ? (
+          <Button
+            icon={<NotificationTwoTone />}
+            onClick={() => setVisibleFormNoti(true)}
+          >
+            Notificación
+          </Button>
+        ) : (
+          <>
+            {" "}
+            <Button
+              icon={<UserOutlined />}
+              onClick={() => setVisiblePerfil(true)}
+            >
+              Perfil
+            </Button>
+            <Button
+              icon={<QuestionCircleOutlined />}
+              onClick={() => setVisibleQuest(true)}
+            >
+              Misiones
+            </Button>
+            <Inventary visible={visibleItems} modEstado={setVisibleItems} />
+            <Button
+              icon={<HeatMapOutlined />}
+              onClick={() => setVisibleItems(true)}
+            >
+              Items
+            </Button>
+          </>
+        )}
+
         <QuestLog visible={visibleQuest} modEstado={setVisibleQuest} />
         <PerfilComp visible={visiblePerfil} modEstado={setVisiblePerfil} />
 
@@ -76,19 +87,20 @@ const Botones = () => {
   );
 };
 
-const ContenidoCard = ({ tipo }) => {
+const ContenidoCard = ({ tipo, datos }) => {
   const { Meta } = Card;
   return (
     <Meta
       avatar={
         <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
       }
-      title="Víctor Mancera" //Reemplazar por el nombre del usuario
+      title={datos.name} //Reemplazar por el nombre del usuario
       description={
         tipo != "Partner" && (
           <Col>
-            <Descripcion />
-            <Botones />
+            {datos.type == "STUDENT" && <Descripcion datos={datos} />}
+
+            <Botones tipo={datos.type} />
           </Col>
         )
       }
@@ -113,7 +125,7 @@ const NoCamera = () => {
   );
 };
 
-const MicCam = () => {  
+const MicCam = () => {
   const {
     changeMicro,
     currentMicrophone,
@@ -121,16 +133,16 @@ const MicCam = () => {
     currentVideo,
   } = useGlobal();
 
-  return (    
+  return (
     <Row style={{ marginTop: "-70px", marginBottom: "50px" }}>
-      <Space direction="horizontal">      
+      <Space direction="horizontal">
         <Button
           style={{
             backgroundColor: currentVideo ? "#87ea26" : "red",
             borderStyle: "none",
           }}
           type="primary"
-          shape="circle"         
+          shape="circle"
           icon={<VideoCameraFilled />}
           onClick={() => changeVideo()}
         />
@@ -140,20 +152,23 @@ const MicCam = () => {
             borderStyle: "none",
           }}
           type="primary"
-          shape="circle"         
+          shape="circle"
           icon={currentMicrophone ? <AudioOutlined /> : <AudioMutedOutlined />}
           onClick={() => changeMicro()}
         />
       </Space>
     </Row>
-  )};
+  );
+};
 
 function VideoComponente({ userVideo, tipo }) {
+  const datos = useSelector((state) => state.user.metaDatos);
   const { currentMicrophone, currentVideo } = useGlobal();
   console.log("Micro:", currentMicrophone);
   console.log("Video:", currentVideo);
 
   useEffect(() => {
+    console.log("Mis datos: ", datos);
     console.log("Video usuario: ", userVideo);
   }, []);
 
@@ -173,8 +188,8 @@ function VideoComponente({ userVideo, tipo }) {
         )
       }
     >
-                <MicCam/>
-      <ContenidoCard tipo={tipo} />
+      <MicCam />
+      <ContenidoCard tipo={tipo} datos={datos} />
     </Card>
   );
 }

@@ -2,7 +2,10 @@ import React, { useState, useRef, useEffect, Suspense } from "react";
 import socket from "../../Utils/Socket/socket";
 import Peer from "simple-peer";
 import { Col, Row, Button, notification, Modal } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import notificacion from "../../Components/Notificacion";
+import { db } from "../../firebase-config";
+import { metaDatos } from "../../store/user";
 
 const VideoComponente = React.lazy(() => import("../../Components/VideoComp"));
 
@@ -14,12 +17,35 @@ function VideoPage() {
   const [caller, setCaller] = useState(""); //User that call you
   const [callerSignal, setCallerSignal] = useState(); //Signal of the caller
   const [callAccepted, setCallAccepted] = useState(false); //Boolean that shows if the user accepted the call
+  const [callerDatos, setCallerDatos] = useState({}); //Boolean that shows if the user accepted the call
 
   const userVideo = useRef(); //Reference for the video
   const partnerVideo = useRef(); //Reference for the video od the other user
   const socketRef = useRef();
+  const dispatch = useDispatch();
+  const correo = useSelector((state) => state.user);
+  const misDatos = useSelector((state) => state.user.metaData);
+
+  const fetchBaseDatos = async (correo, dispatch) => {
+    console.log("pasamos el correo: ", correo.user.username);
+    let docRef = db.collection("users");
+    await docRef
+      .get()
+      .then((snap) => {
+        snap.forEach((doc) => {
+          if (doc.data().email == correo.user.username) {
+            dispatch(metaDatos(doc.data()));
+          }
+        });
+      })
+      .catch((e) => {
+        console.log("Error al obtener el documento", e);
+      });
+  };
 
   useEffect(() => {
+    console.log("Correo: ", correo.user);
+    fetchBaseDatos(correo, dispatch);
     socketRef.current = socket;
     navigator.mediaDevices //Acces to the navigator media
       .getUserMedia({ video: true, audio: true }) //We obtain the video and audio
@@ -55,6 +81,7 @@ function VideoPage() {
       setReceivingCall(true); //We set that we have a receiving call
       setCaller(data.from); //We set who is the caller
       setCallerSignal(data.signal); //We set the caller signal
+      setCallerDatos(data.metaDatos);
     });
   }, []);
 
@@ -77,6 +104,7 @@ function VideoPage() {
         //We emmit an event (callUser) passing the id, the data and our id
         userToCall: id,
         signalData: data,
+        metaData: misDatos,
         from: yourID,
       });
     });
