@@ -54,7 +54,7 @@ let items_uso = [
     icono: "https://img.icons8.com/color/48/000000/shield.png",
     nombre: "Escudo",
     descripcion: "Te protege de una amonestacion",
-  },
+  }
 ];
 
 let items_disponibles = [
@@ -125,9 +125,9 @@ const TarjetaInventario = ({ habilidad, setHabilidad, habilidades }) => {
   };
 
   const content = (
-    <h6 style={{ marginTop: "15px", marginRight: "20px" }}>
+    <h4 style={{ marginTop: "15px", marginRight: "20px" }}>
       {habilidad.descripcion}
-    </h6>
+    </h4>
   );
 
   return (
@@ -157,68 +157,101 @@ const TarjetaInventario = ({ habilidad, setHabilidad, habilidades }) => {
 const onSearch = (value) => console.log(value);
 
 function Inventary({ visible, modEstado }) {
-    const [misItems, setItems] = useState(items_uso);
-    const [visibleStore, setStore] = useState(false);
-    const hideModal = () => {
-        this.setState({
-            visible: false,
-        });
-    };
-    return (
-        <>
-        <Modal
-            title="Inventario"
-            centered
-            visible={visible}            
-            cancelButtonProps={{ style: { display: "none" } }}
-            footer={[
-                <Button key="1" onClick={()=>setStore(true)}>Ir a Tienda</Button>,
-                <Button key="2" onClick={()=>modEstado(false)}>Salir</Button>
-              ]}
-        >
-            <Col>
-                <Row>
-                    <div className="header__input">
-                        <SearchOutlined fontSize="large" style={{ margin: '5px' }} />
-                        <input placeholder="Buscar en el inventario" type="text" />
-                    </div>
-                </Row>
-                <Row>
-                    <div class="habilidad-uso">
-                        {misItems.map((item, i) => (
-                            <TarjetaInventario key={i}
-                                habilidad={item}
-                                setHabilidad={setItems}
-                                habilidades={misItems}
-                            />
-                        ))}
-                    </div>
+  const [misItemsUso, setItemsUso] = useState(items_uso);
+  const [misItemsDisp, setItemsDisp] = useState(items_disponibles);
+  const [misItemsNoDisp, setItemsNoDisp] = useState(items_no_disponibles);
+  const [visibleStore, setStore] = useState(false);
+  const hideModal = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+  return (
+    <>
+      <Modal
+        title="Inventario"
+        centered
+        visible={visible}
+        cancelButtonProps={{ style: { display: "none" } }}
+        footer={[
+          <Button key="1" onClick={() => setStore(true)}>Ir a Tienda</Button>,
+          <Button key="2" onClick={() => modEstado(false)}>Salir</Button>
+        ]}
+      >
+        <Col>
+          <Row>
+            <div className="header__input">
+              <SearchOutlined fontSize="large" style={{ margin: '5px' }} />
+              <input placeholder="Buscar en el inventario" type="text" />
+            </div>
+          </Row>
+          <Row>
+            <div class="habilidad-uso">
+              <h2 className="subtitulo-uso">Inventario</h2>
+              <div className="contenedor">
+                <div className="extremos">
+                  <TarjetaInventario
+                    habilidad={items_uso[0]}
+                    setHabilidad={setItemsUso}
+                    habilidades={misItemsUso}
+                  />
+                </div>
+              </div>
+              <div className="contenedor-primario">
+                <TarjetaInventario
+                  habilidad={items_uso[1]}
+                  setHabilidad={setItemsUso}
+                  habilidades={misItemsUso}
+                />
+                <TarjetaInventario
+                  habilidad={items_uso[2]}
+                  setHabilidad={setItemsUso}
+                  habilidades={misItemsUso}
+                />
+                <TarjetaInventario
+                  habilidad={items_uso[3]}
+                  setHabilidad={setItemsUso}
+                  habilidades={misItemsUso}
+                />
+              </div>
+              <div className="contenedor">
+                <div className="extremos">
+                  <TarjetaInventario
+                    habilidad={items_uso[4]}
+                    setHabilidad={setItemsUso}
+                    habilidades={misItemsUso}
+                  />
+                </div>
+              </div>
+            </div>
 
-                    <div class="habilidad-disponibles">
-                        {misItems.map((item, i) => (
-                            <TarjetaInventario key={i}
-                                habilidad={item}
-                                setHabilidad={setItems}
-                                habilidades={misItems}
-                            />
-                        ))}
-                    </div>
+            <div class="habilidad-disponibles">
+              <h2 className="subtitulo-disp">Objetos</h2>
+              {misItemsDisp.map((item, i) => (
+                <TarjetaInventario key={i}
+                  habilidad={item}
+                  setHabilidad={setItemsDisp}
+                  habilidades={misItemsDisp}
+                />
+              ))}
+            </div>
 
-                    <div class="habilidad-no-disponibles">
-                        {misItems.map((item, i) => (
-                            <TarjetaInventario key={i}
-                                habilidad={item}
-                                setHabilidad={setItems}
-                                habilidades={misItems}
-                            />
-                        ))}
-                    </div>
-                </Row>
-            </Col>
-        </Modal>
-        <Store visible={visibleStore} modEstado={setStore}/>
-        </>
-    )
+            <div class="habilidad-no-disponibles">
+              <h2 className="subtitulo-no-disp">Consumibles</h2>
+              {misItemsNoDisp.map((item, i) => (
+                <TarjetaInventario key={i}
+                  habilidad={item}
+                  setHabilidad={setItemsNoDisp}
+                  habilidades={misItemsNoDisp}
+                />
+              ))}
+            </div>
+          </Row>
+        </Col>
+      </Modal>
+      <Store visible={visibleStore} modEstado={setStore} />
+    </>
+  )
 }
 
 export default Inventary;

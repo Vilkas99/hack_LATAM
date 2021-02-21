@@ -112,8 +112,8 @@ const TarjetaStore = ({ producto, setProducto, productos }) => {
     const handleClick = (e, producto) => {
         e.preventDefault();
         notification.info({
-            message: `Habilidad Activada`,
-            description: `¡Acabas de utlitizar la habilidad: ${producto.nombre}, por un total de ${producto.precio} puntos !`,
+            message: `Habilidad Comprada`,
+            description: `¡Acabas de comprar la habilidad: ${producto.nombre}, por un total de ${producto.precio} puntos !`,
             placement: "topLeft",
         });
         socketRef.current.emit("Habilidad Activada", {
@@ -124,9 +124,9 @@ const TarjetaStore = ({ producto, setProducto, productos }) => {
     };
 
     const content = (
-        <h6 style={{ marginTop: "15px", marginRight: "20px" }}>
+        <h4 style={{ marginTop: "15px", marginRight: "20px" }}>
             {producto.descripcion}
-        </h6>
+        </h4>
     );
 
     return (
