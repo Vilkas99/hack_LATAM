@@ -26,8 +26,93 @@ let user = {
   email: "escanor@gmail.com",
 };
 
+let frases = [
+  {
+    autor: "Nelson Mandela",
+    descripcion: "Siempre parece imposible hasta que se hace",
+  },
+  {
+    autor: "Jim Yyun",
+    descripcion: "La motivación es lo que te pone en marcha, el hábito es lo que hace que sigas",
+  },
+  {
+    autor: "Confucio",
+    descripcion: "Estudia el pasado si quieres intuir el futuro",
+  },
+  {
+    autor: "Jim Rohn",
+    descripcion: "Si no te gusta cómo son las cosas, cámbialas",
+  },
+  {
+    autor: "John R. Wooden",
+    descripcion: "No dejes que lo que no puedes hacer interfiera con lo que puedes hacer",
+  },
+  {
+    autor: "Virgilio",
+    descripcion: "La buena fortuna favorece a los atrevidos",
+  },
+  {
+    autor: "Tiger Woods",
+    descripcion: "Siempre se puede ser mejor",
+  },
+  {
+    autor: "Thomas Edison",
+    descripcion: "No hay un sustituto para el trabajo duro",
+  },
+  {
+    autor: "Michael Jordan",
+    descripcion: "He fallado una y otra vez a lo largo de mi vida. Es por eso por lo que he tenido éxito",
+  },
+  {
+    autor: "Séneca",
+    descripcion: "Sin estudiar enferma el alma",
+  },
+  {
+    autor: "George Saville",
+    descripcion: "El hombre que es un maestro de la paciencia es un maestro de todo lo demás",
+  },
+  {
+    autor: "Proverbio chino",
+    descripcion: "Un libro es como un jardín que se puede llevar en el bolsillo",
+  },
+  {
+    autor: "Thomas Edison",
+    descripcion: "Si hiciésemos todas las cosas de las que somos capaces, nos asombraríamos",
+  },
+  {
+    autor: "Thomas Jefferson",
+    descripcion: "Cuanto más trabajo, más suerte parezco tener",
+  },
+  {
+    autor: "John Ruskiin",
+    descripcion: "La calidad nunca es un accidente, siempre es resultado de un esfuerzo de la inteligencia",
+  },
+  {
+    autor: "Norman Vincent Peale",
+    descripcion: "Cambia tus pensamientos y cambiarás tu mundo",
+  },
+  {
+    autor: "Martin Luther King",
+    descripcion: "Tus talentos y habilidades irán mejorando con el tiempo, pero para eso has de empezar",
+  },
+  {
+    autor: "Mahatma Gandhi",
+    descripcion: "La verdadera educación consiste en obtener lo mejor de uno mismo",
+  },
+  {
+    autor: "Edmund Burke",
+    descripcion: "Nuestra paciencia conseguirá más cosas que nuestra fuerza",
+  },
+  {
+    autor: "Helen Exley",
+    descripcion: 'Los libros son peligrosos. Los mejores deberían ser etiquetados con un "Esto podría cambiar tu vida"',
+  },
+];
+
+
 const Buttons = ({ user }) => {
   const [visibleAchievements, setVisibleAchievements] = useState(false);
+  let indice = Math.floor(Math.random() * frases.length);
   return (
     <div class="actions">
       <Popover
@@ -42,10 +127,16 @@ const Buttons = ({ user }) => {
       </Popover>
 
       <Popover
+        title={
+          frases[indice].autor
+        }
         placement="right"
         content={
           <div>
-            <h3 style={{ color: "#4b16a0" }}>Mago de las ideas</h3>
+            <h3 style={{ color: "#4b16a0" }}>{
+              frases[indice].descripcion
+            }</h3>
+
           </div>
         }
       >
