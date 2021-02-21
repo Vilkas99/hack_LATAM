@@ -3,7 +3,6 @@ import { auth, db } from "../../firebase-config";
 import "@firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
-
 const AuthContext = React.createContext();
 
 export function useAuth() {
@@ -15,22 +14,22 @@ export function AuthProvider({ children }) {
   const [currentProfile, setCurrentProfile] = useState();
   const [loading, setLoading] = useState(true);
 
-  function signUp (email, password, name, userType) {   
-    const id = uuidv4();     
+  function signUp(email, password, name, userType) {
+    const id = uuidv4();
     return auth
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {                
+      .then(() => {
         const user = {
           email: email,
           level: 0,
           name: name,
           points: 0,
           quest: [],
-          type: (userType = '100001') ? 'TEACHER':'STUDENT'
+          type: (userType = "100001") ? "TEACHER" : "STUDENT",
         };
         console.log(user);
-        const res = db.collection('users').doc(id).set(user);
-        console.log(`User ${id} created successfully`);                
+        const res = db.collection("users").doc(id).set(user);
+        console.log(`User ${id} created successfully`);
       })
       .catch((error) => {
         console.log(error);
