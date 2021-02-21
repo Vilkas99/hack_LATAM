@@ -88,6 +88,7 @@ const TarjetaMision = ({ mision, setMision, misiones }) => {
   }, []);
 
   const handleClick = (e, mision) => {
+    console.log("Enviando quest!");
     e.preventDefault();
     let miData = {};
     notification.info({
@@ -100,24 +101,24 @@ const TarjetaMision = ({ mision, setMision, misiones }) => {
       miData = {
         titulo: mision.titulo,
         usuario: "Reemplazar por nombre",
-        tipo: mision.tipo,
+        tipo: "misionCompletada",
+        tipoRecompensa: mision.tipo,
         puntos: mision.recompensa,
       };
     } else {
       miData = {
         titulo: mision.titulo,
         usuario: "Reemplazar por nombre",
-        tipo: mision.tipo,
+        tipoRecompensa: mision.tipo,
+        tipo: "misionCompletada",
         nombreItem: mision.recompensa.nombreItem,
         descripcionItem: mision.recompensa.descripcionItem,
       };
     }
 
-    socketRef.current.emit("QuestCompletado", {
-      titulo: mision.titulo,
+    socketRef.current.emit("creandoNotificacion", miData);
 
-      usuario: "Reemplazar por nombre",
-    });
+    console.log("Enviando quest!");
     setMision(misiones.filter((elemento) => elemento != mision));
   };
 

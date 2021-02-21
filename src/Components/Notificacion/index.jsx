@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { notification, Space, Divider, Button } from "antd";
 import { DollarTwoTone, CrownTwoTone } from "@ant-design/icons";
 import UseAnimations from "react-useanimations";
@@ -21,43 +21,49 @@ const ContenidoTitulo = ({ titulo, color }) => {
 };
 
 const ContenidoItem = ({ data }) => {
-  const handleOtorgarRecompensa = () => {
-    let miData = {};
-    if (data.tipo == "puntos") {
-      miData = {
-        puntos: data.puntos,
-        tipo: data.tipo,
-      };
-    } else {
-      miData = {
-        nombreItem: data.nombreItem,
-        descripcionItem: data.descripcionItem,
-        tipo: data.tipo,
-      };
-    }
-    socket.emit("creandoNotificacion", data);
-  };
-
   return (
     <Space direction="vertical">
       <CrownTwoTone size={36} />
       <h3>Recompensa: {data.nombreItem} </h3>
       <h4>{data.descripcionItem} </h4>
-      {data.tipo == "misionCompletada  " && (
-        <Button onClick={() => handleOtorgarRecompensa(data)}>
-          Otorgar recompensa
-        </Button>
-      )}
     </Space>
   );
 };
 
 const ContenidoMisionCompletada = ({ data }) => {
+  console.log("Tipo de mision: ", data.tipo);
+  const handleOtorgarRecompensa = () => {
+    let miData = {};
+
+    if (data.tipoRecompensa == "puntos") {
+      miData = {
+        puntos: data.puntos,
+        tipo: "puntos",
+      };
+    } else {
+      miData = {
+        nombreItem: data.nombreItem,
+        descripcionItem: data.descripcionItem,
+        tipo: "Item",
+      };
+    }
+
+    console.log("Que estamos mandando? ", miData);
+    socket.emit("creandoNotificacion", miData);
+  };
   return (
     <Space direction="vertical">
-      <CrownTwoTone size={36} />
-      <h3>Mision: {data.mision} </h3>
-      <h4>{data.descripcionMision} </h4>
+      <h2>Recompensa</h2>
+      {data.tipoRecompensa == "puntos" ? (
+        <h3>{data.puntos} puntos!</h3>
+      ) : (
+        <h3>{data.nombreItem}</h3>
+      )}
+      {data.tipo == "misionCompletada" && (
+        <Button onClick={() => handleOtorgarRecompensa(data)}>
+          Otorgar recompensa
+        </Button>
+      )}
     </Space>
   );
 };
@@ -106,6 +112,15 @@ function notificacion(data) {
     );
 
     descripcion = <ContenidoMisionCompletada data={data} />;
+  } else if (data.tipo == "habilidadActivada") {
+    titulo = (
+      <ContenidoTitulo
+        titulo={`¡Se ha activado una habilidad: ${data.titulo}!`}
+        color="#943bd9"
+      />
+    );
+
+    descripcion = `${data.usuario} solicita activar una habilidad`;
   }
 
   notification.open({

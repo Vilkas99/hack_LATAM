@@ -1,34 +1,30 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-    Row,
-    Col,
-    Card,
-    Avatar,
-    Typography,
-    Space,
-    Button,
-    Modal,
-    Rate,
-    Input,
-    Image,
-    Popover,
-    notification,
+  Row,
+  Col,
+  Card,
+  Avatar,
+  Typography,
+  Space,
+  Button,
+  Modal,
+  Rate,
+  Input,
+  Image,
+  Popover,
+  notification,
 } from "antd";
 import {
-    UserOutlined,
-    EuroCircleTwoTone,
-    CrownTwoTone,
-    SearchOutlined,
+  UserOutlined,
+  EuroCircleTwoTone,
+  CrownTwoTone,
+  SearchOutlined,
 } from "@ant-design/icons";
 
 import socket from "../../Utils/Socket/socket";
-import styles from '../Inventary/index.css';
+import styles from "../Inventary/index.css";
 
-let items_inicial = [
-    
-    
-    
-];
+
 
 let items_uso = [
     {
@@ -205,5 +201,4 @@ function Inventary({ visible, modEstado }) {
     )
 }
 
-
-export default Inventary
+export default Inventary;
