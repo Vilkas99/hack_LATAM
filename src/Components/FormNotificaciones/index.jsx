@@ -45,6 +45,7 @@ function FormNotificaciones({ visible, setVisible }) {
       data = {
         nombreMision,
         descMision,
+        tipoRecompensa,
         recompensa: datosRecompensa,
         tipo,
       };
