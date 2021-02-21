@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { db } from "../../firebase-config";
 import {
   Row,
   Col,
@@ -84,15 +85,32 @@ const TarjetaMision = ({ mision, setMision, misiones }) => {
   const { Text } = Typography;
   const socketRef = useRef(); //Socket
   let keyTo = useSelector((state) => state.invitado.keyId);
+  const misDatos = useSelector((state) => state.user.metaDatos);
 
   useEffect(() => {
     socketRef.current = socket; //Conectamos el socjet
   }, []);
 
-  const handleClick = (e, mision) => {
+  const handleClick = async (e, mision) => {
     console.log("Enviando quest!");
     e.preventDefault();
     let miData = {};
+    let questsAnterior = [];
+
+    let docRef = db.collection("users");
+    await docRef
+      .get()
+      .then((snap) => {
+        snap.forEach((doc) => {
+          if (doc.data().email == misDatos.email) {
+            questsAnterior = doc.data().quest;
+          }
+        });
+      })
+      .catch((e) => {
+        console.log("Error al obtener el documento", e);
+      });
+
     notification.info({
       message: `Quest enviada`,
       description: `¡Se ha notificado al profesor que has terminado: ${mision.titulo} !`,
@@ -107,6 +125,7 @@ const TarjetaMision = ({ mision, setMision, misiones }) => {
         tipoRecompensa: mision.tipo,
         puntos: mision.recompensa,
         to: keyTo,
+        from: misDatos.name,
       };
     } else {
       miData = {

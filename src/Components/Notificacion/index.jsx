@@ -5,6 +5,7 @@ import UseAnimations from "react-useanimations";
 import alertCircle from "react-useanimations/lib/alertCircle";
 import socket from "../../Utils/Socket/socket";
 import { useDispatch, useSelector } from "react-redux";
+import { metaDatos } from "../../store/user";
 
 const ContenidoTitulo = ({ titulo, color }) => {
   return (
@@ -40,12 +41,14 @@ const ContenidoMisionCompletada = ({ data }) => {
       miData = {
         puntos: data.puntos,
         tipo: "puntos",
+        to: data.to,
       };
     } else {
       miData = {
         nombreItem: data.nombreItem,
         descripcionItem: data.descripcionItem,
         tipo: "Item",
+        to: data.to,
       };
     }
 
@@ -107,7 +110,7 @@ function notificacion(data) {
   } else if (data.tipo == "misionCompletada") {
     titulo = (
       <ContenidoTitulo
-        titulo={`¡Se ha completado una misión: ${data.titulo}!`}
+        titulo={`¡${data.from} ha completado una misión: ${data.titulo}!`}
         color="#943bd9"
       />
     );
@@ -121,7 +124,7 @@ function notificacion(data) {
       />
     );
 
-    descripcion = `${data.usuario} solicita activar una habilidad`;
+    descripcion = `${data.usuario} solicita activar una habilidad: ${data.descripcion}`;
   }
 
   notification.open({

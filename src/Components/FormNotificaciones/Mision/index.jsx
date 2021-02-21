@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Form, Col, Row, Input, Cascader, Button } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import ContenidoItem from "../Item";
 import ContenidoPuntos from "../Puntos";
+import { db } from "../../../firebase-config";
 
 const opciones = [
   {
@@ -24,15 +26,31 @@ function ContenidoMision({
   const [puntos, setPuntos] = useState(0);
   const [nombre, setNombreItem] = useState(0);
   const [descripcion, setDescripcionItem] = useState("");
+  let metaInvitado = useSelector((state) => state.invitado.metaDatos);
 
-  const handleRecompensa = () => {
+  const handleRecompensa = async () => {
     let data = {};
+    let item = {};
     if (tipoRecompensa == "puntos") {
       data = { puntos };
+      item = {
+        titulo: "A por ellos sí señor",
+        descripcion: "Esta es otra descripción",
+        nivel: 5,
+        recompensaTxt: "Item legendario",
+        recompensa: {
+          nombreItem: "Capa de la verdad",
+          descripcionItem: "Una capa que dice unas cuantas mentiras",
+        },
+        tipo: "item",
+        color: "#7842f5",
+        ID: "ASDASDAS",
+      };
     } else {
       data = { nombreItem: nombre, descripcionItem: descripcion };
     }
     console.log("Hemos creado la recompensa: ", data);
+
     setDatosRecompensa(data);
   };
 

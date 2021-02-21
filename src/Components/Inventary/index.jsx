@@ -1,30 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Row,
   Col,
-  Card,
-  Avatar,
   Typography,
-  Space,
   Button,
   Modal,
-  Rate,
   Input,
-  Image,
   Popover,
   notification,
 } from "antd";
-import {
-  UserOutlined,
-  EuroCircleTwoTone,
-  CrownTwoTone,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 
 import socket from "../../Utils/Socket/socket";
 import styles from "../Inventary/index.css";
-import Store from "../Store/index"
-
+import Store from "../Store/index";
 
 let items_uso = [
   {
@@ -54,7 +44,7 @@ let items_uso = [
     icono: "https://img.icons8.com/color/48/000000/shield.png",
     nombre: "Escudo",
     descripcion: "Te protege de una amonestacion",
-  }
+  },
 ];
 
 let items_disponibles = [
@@ -103,6 +93,8 @@ let items_no_disponibles = [
 const { Search } = Input;
 
 const TarjetaInventario = ({ habilidad, setHabilidad, habilidades }) => {
+  const misDatos = useSelector((state) => state.user.metaDatos);
+  let keyTo = useSelector((state) => state.invitado.keyId);
   const { Text } = Typography;
   const socketRef = useRef(); //Socket
 
@@ -117,9 +109,13 @@ const TarjetaInventario = ({ habilidad, setHabilidad, habilidades }) => {
       description: `¡Acabas de utlitizar la habilidad: ${habilidad.nombre} !`,
       placement: "topLeft",
     });
-    socketRef.current.emit("Habilidad Activada", {
+    console.log("HABILIDAD: ", habilidad);
+    socketRef.current.emit("creandoNotificacion", {
       titulo: habilidad.nombre,
-      usuario: "Reemplazar por nombre",
+      usuario: misDatos.name,
+      descripcion: habilidad.descripcion,
+      to: keyTo,
+      tipo: "habilidadActivada",
     });
     setHabilidad(habilidades.filter((elemento) => elemento != habilidad));
   };
@@ -174,14 +170,18 @@ function Inventary({ visible, modEstado }) {
         visible={visible}
         cancelButtonProps={{ style: { display: "none" } }}
         footer={[
-          <Button key="1" onClick={() => setStore(true)}>Ir a Tienda</Button>,
-          <Button key="2" onClick={() => modEstado(false)}>Salir</Button>
+          <Button key="1" onClick={() => setStore(true)}>
+            Ir a Tienda
+          </Button>,
+          <Button key="2" onClick={() => modEstado(false)}>
+            Salir
+          </Button>,
         ]}
       >
         <Col>
           <Row>
             <div className="header__input">
-              <SearchOutlined fontSize="large" style={{ margin: '5px' }} />
+              <SearchOutlined fontSize="large" style={{ margin: "5px" }} />
               <input placeholder="Buscar en el inventario" type="text" />
             </div>
           </Row>
@@ -228,7 +228,8 @@ function Inventary({ visible, modEstado }) {
             <div class="habilidad-disponibles">
               <h2 className="subtitulo-disp">Objetos</h2>
               {misItemsDisp.map((item, i) => (
-                <TarjetaInventario key={i}
+                <TarjetaInventario
+                  key={i}
                   habilidad={item}
                   setHabilidad={setItemsDisp}
                   habilidades={misItemsDisp}
@@ -239,7 +240,8 @@ function Inventary({ visible, modEstado }) {
             <div class="habilidad-no-disponibles">
               <h2 className="subtitulo-no-disp">Consumibles</h2>
               {misItemsNoDisp.map((item, i) => (
-                <TarjetaInventario key={i}
+                <TarjetaInventario
+                  key={i}
                   habilidad={item}
                   setHabilidad={setItemsNoDisp}
                   habilidades={misItemsNoDisp}
@@ -251,7 +253,7 @@ function Inventary({ visible, modEstado }) {
       </Modal>
       <Store visible={visibleStore} modEstado={setStore} />
     </>
-  )
+  );
 }
 
 export default Inventary;
