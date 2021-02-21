@@ -11,14 +11,14 @@ import { GlobalProvider } from "./Utils/Global"
 
 ReactDOM.render(
   <GlobalProvider>
-  <AuthProvider>
-    <React.StrictMode>
-      <Suspense fallback={<div>Loading... </div>}>
-        <Routes />
+    <AuthProvider>
+      <React.StrictMode>
+        <Suspense fallback={<div>Loading... </div>}>
+          <Routes />
         </Suspense>
       </React.StrictMode>
-      </AuthProvider>
-      </GlobalProvider>,
+    </AuthProvider>
+  </GlobalProvider>,
   document.getElementById("root")
 );
 

@@ -53,6 +53,36 @@ let items_inicial = [
         nombre: 'Pocion de veneno',
         descripcion: 'CUIDADO no consumir',
     },
+    {
+        icono: 'https://img.icons8.com/color/48/000000/greek-helmet.png',
+        nombre: 'Casco de guerra',
+        descripcion: 'Para mas FPS',
+    },
+    {
+        icono: 'https://img.icons8.com/color/48/000000/three-leaf-clover.png',
+        nombre: 'Trévol de suerte',
+        descripcion: 'Aumenta la posibilidad de que te toque participar y sumar puntos',
+    },
+    {
+        icono: 'https://img.icons8.com/color/48/000000/snorlax.png',
+        nombre: 'Snorlax',
+        descripcion: 'Te libra de una penalizacion por llegar tarde por quedarte dormido',
+    },
+    {
+        icono: 'https://img.icons8.com/color/48/000000/buzzer.png',
+        nombre: 'Botón de participación',
+        descripcion: 'Te permite participar en el siguiente turno y ganar experiencia.',
+    },
+    {
+        icono: 'https://img.icons8.com/color/48/000000/remove-book.png',
+        nombre: 'Reducir tarea (Item Especial)',
+        descripcion: 'Reduce la cantidad de tarea asignada por el profesor segun su criterio, para hacer uso de este item tienen que activarlo todos en la clase.',
+    },
+    {
+        icono: 'https://img.icons8.com/color/48/000000/story-time.png',
+        nombre: 'Tiempo extra (Item Especial)',
+        descripcion: 'Aumenta el tiempo de una práctica o examen para los estudiantes segun el criterio del profesor, para hacer uso de este item tienen que activarlo todos en la clase.',
+    },
 ];
 
 
@@ -88,7 +118,7 @@ const TarjetaInventario = ({ habilidad, setHabilidad, habilidades }) => {
 
     return (
         <Button
-            style={{ width: '48px', height: '48px',padding:'0' }}
+            style={{ width: '48px', height: '48px',padding:'0', margin:'10px'}}
             onClick={(e) => handleClick(e, habilidad)}
         >
             <Popover content={content} title={habilidad.nombre} trigger="hover">
